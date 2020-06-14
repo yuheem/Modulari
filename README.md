@@ -1,7 +1,5 @@
 # README
 
----
-
 ## Motivation
 
 When you are fresh out of tertiary education, researching and considering prospective courses to apply for in university can be a daunting task. While many of us have a rough idea of what the course entails and the job opportunities it brings, many are still **uncertain** of whether their choice is a right fit for them. Furthermore, it is not always clear **what to expect** from your course.
