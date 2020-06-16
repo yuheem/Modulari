@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <AddModules v-on:add-module="generateTree" />
+    <Sidebar />
   </div>
 </template>
 
 <script>
 import AddModules from "./components/AddModules";
+import Sidebar from "./components/Sidebar";
 
 export default {
   name: "App",
   components: {
-    AddModules
+    AddModules,
+    Sidebar
   },
   data() {
     return {
@@ -35,5 +38,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  align-items: stretch;
 }
 </style>
