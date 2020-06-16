@@ -1,16 +1,28 @@
 <template>
   <div id="app">
-    <UserInterface />
+    <AddModules v-on:add-module="generateTree" />
   </div>
 </template>
 
 <script>
-import UserInterface from "./components/UserInterface.vue";
+import AddModules from "./components/AddModules";
 
 export default {
   name: "App",
   components: {
-    UserInterface
+    AddModules
+  },
+  data() {
+    return {
+      moduleData: []
+    };
+  },
+  methods: {
+    generateTree(moduleCode) {
+      // testing functionality
+      this.moduleData = [...this.moduleData, moduleCode];
+      console.log(this.moduleData);
+    }
   }
 };
 </script>
