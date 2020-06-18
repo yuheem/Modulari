@@ -3,11 +3,11 @@
     <div id="main">
       <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
       <Header />
-      <AddModules v-on:add-module="generateTree" />
+      <AddModules v-on:add-module="generateGraph" />
       <Graph />
     </div>
     <div>
-      <Sidebar />
+      <Sidebar v-on:filter-modules="filterGraph" />
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
     };
   },
   methods: {
-    generateTree(moduleCode) {
+    generateGraph(moduleCode) {
       // Retrieve module information from NUSMods
       axios
         .get(`https://api.nusmods.com/v2/2019-2020/modules/${moduleCode}.json`)
@@ -47,6 +47,22 @@ export default {
       document.getElementById("sidebar").style.width = "25%";
       document.getElementById("sidebar").style.display = "block";
       document.getElementById("openSidebar").style.display = "none";
+    },
+    filterGraph(filterDetails) {
+      // Test if data was transferred correctly
+      const {
+        filteredLevel,
+        filteredFaculty,
+        filteredNumOfMCs,
+        filteredExams
+      } = filterDetails;
+
+      console.log(
+        filteredLevel,
+        filteredFaculty,
+        filteredNumOfMCs,
+        filteredExams
+      );
     }
   }
 };
