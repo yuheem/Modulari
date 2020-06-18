@@ -2,6 +2,7 @@
   <div id="app">
     <Header />
     <AddModules v-on:add-module="generateTree" />
+    <Graph />
     <Sidebar />
   </div>
 </template>
@@ -11,6 +12,7 @@ import axios from "axios";
 
 import AddModules from "./components/AddModules";
 import Sidebar from "./components/Sidebar";
+import Graph from "./components/Graph";
 import Header from "./components/layout/Header";
 
 export default {
@@ -18,7 +20,8 @@ export default {
   components: {
     AddModules,
     Sidebar,
-    Header
+    Header,
+    Graph
   },
   data() {
     return {
