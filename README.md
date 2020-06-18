@@ -2,7 +2,7 @@
 
 When you are fresh out of tertiary education, researching and considering prospective courses to apply for in university can be a daunting task. While many of us have a rough idea of what the course entails and the job opportunities it brings, many are still **uncertain** of whether their choice is a right fit for them. Furthermore, it is not always clear **what to expect** from your course.
 
-With a plethora of modules available for prospective students, many will find it **confusing** and **complex** to get a full picture of what to expect and learn in their course of choice. This problem extends to current undergraduates as well. Many current undergraduates may be **unsure** of ****how to **plan** which modules to take to ensure that they will graduate on schedule. They may also find it difficult to source for information on **specific modules** required to achieve their desired specialization.
+With a plethora of modules available for prospective students, many will find it **confusing** and **complex** to get a full picture of what to expect and learn in their course of choice. This problem extends to current undergraduates as well. Many current undergraduates may be **unsure** of how to **plan** which modules to take to ensure that they will graduate on schedule. They may also find it difficult to source for information on **specific modules** required to achieve their desired specialization.
 
 We believe such problems arise due to a lack of a visualization tool which can help students have a better way to conceptualize how each module is related to each other. Thus, we would like to create one for the benefit of current and prospective students.
 
