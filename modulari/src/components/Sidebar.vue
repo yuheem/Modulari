@@ -1,7 +1,8 @@
 <template>
   <div id="sidebar">
+    <button id="closeSidebar" @click="closeSidebar()">x</button>
     <h4>Filter by:</h4>
-    <form>
+    <form @submit="filter">
       <ul>
         <li>
           <label for="level">Level:</label>
@@ -20,6 +21,8 @@
           <input type="text" name="exams" placeholder="No filter" />
         </li>
       </ul>
+
+      <input type="submit" value="Filter" />
     </form>
   </div>
 </template>
@@ -34,16 +37,31 @@ export default {
       numOfMCs: "",
       exams: ""
     };
+  },
+  methods: {
+    closeSidebar() {
+      document.getElementById("main").style.marginLeft = "0%";
+      document.getElementById("sidebar").style.display = "none";
+      document.getElementById("openSidebar").style.display = "inline-block";
+    }
   }
 };
 </script>
 
 <style scoped>
 #sidebar {
-  min-width: 250px;
-  max-width: 250px;
+  display: none;
 }
 ul {
   list-style: none;
+  padding: 0px;
+}
+button {
+  cursor: pointer;
+  float: right;
+}
+
+input[type="submit"] {
+  float: right;
 }
 </style>

@@ -7,7 +7,7 @@
         name="moduleCode"
         placeholder="Input the module code to generate prerequisite tree"
       />
-      <input type="submit" value="+" />
+      <button type="submit" class="fas fa-plus"></button>
     </form>
   </div>
 </template>
@@ -40,12 +40,14 @@ form {
   display: flex;
 }
 
-input[type="text"] {
-  flex: 10;
-  padding: 5px;
-}
-
-input[type="submit"] {
-  flex: 2;
+button[type="submit"] {
+  width: 10px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  position: relative;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 </style>
