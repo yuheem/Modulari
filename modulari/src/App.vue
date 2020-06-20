@@ -36,7 +36,7 @@ export default {
   methods: {
     generateGraph(moduleCode) {
       // Retrieve module information from NUSMods
-      console.log(AcademicCalendar.getAcadYear(new Date()));
+      console.log(academicCalendar.getAcadYear(new Date()));
       console.log(moduleCode.toUpperCase());
       axios
         .get("https://api.nusmods.com/v2/" +
