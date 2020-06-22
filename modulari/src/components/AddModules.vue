@@ -23,13 +23,11 @@ export default {
   methods: {
     addModule(event) {
       event.preventDefault();
+
       let moduleToBeAdded = this.moduleCode;
 
       // Send module code to parent
       this.$emit("add-module", moduleToBeAdded);
-
-      // Clear input text
-      this.moduleCode = "";
     }
   }
 };

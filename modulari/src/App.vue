@@ -3,7 +3,14 @@
     <div id="main">
       <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
       <Header />
-      <AddModules v-on:add-module="generateGraph" />
+
+      <span>
+        <p v-if="invalidModuleCode">
+          <b>Invalid module code.</b>
+        </p>
+        <AddModules v-on:add-module="generateGraph" />
+      </span>
+
       <Graph />
     </div>
     <div>
@@ -14,7 +21,7 @@
 
 <script>
 import axios from "axios";
-import academicCalendar from "./assets/js/academicCalendar.js"
+import academicCalendar from "./assets/js/academicCalendar.js";
 import AddModules from "./components/AddModules";
 import Sidebar from "./components/Sidebar";
 import Graph from "./components/Graph";
@@ -30,6 +37,7 @@ export default {
   },
   data() {
     return {
+      invalidModuleCode: false,
       modulesShownInGraph: []
     };
   },
@@ -39,11 +47,21 @@ export default {
       console.log(academicCalendar.getAcadYear(new Date()));
       console.log(moduleCode.toUpperCase());
       axios
-        .get("https://api.nusmods.com/v2/" +
-          `${academicCalendar.getAcadYear(new Date())}` +
-          `/modules/${moduleCode.toUpperCase()}.json`)
-        .then(res => this.modulesShownInGraph.push(res.data))
-        .catch(err => console.log(err));
+        .get(
+          "https://api.nusmods.com/v2/" +
+            `${academicCalendar.getAcadYear(new Date())}` +
+            `/modules/${moduleCode.toUpperCase()}.json`
+        )
+        .then(res => {
+          this.modulesShownInGraph.push(res.data);
+          this.invalidModuleCode = false;
+        })
+        // if module code is invalid
+        .catch(err => {
+          if (err.request) {
+            this.invalidModuleCode = true;
+          }
+        });
       console.log(this.modulesShownInGraph);
     },
     openSidebar() {
