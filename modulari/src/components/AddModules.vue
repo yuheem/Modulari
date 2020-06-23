@@ -39,11 +39,10 @@ form {
 }
 
 button[type="submit"] {
-  width: 10px;
+  width: 70px;
   padding: 12px 20px;
   margin: 8px 0;
   position: relative;
-  display: flex;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

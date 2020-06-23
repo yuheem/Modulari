@@ -5,7 +5,7 @@
       <Header />
 
       <span>
-        <p v-if="invalidModuleCode">
+        <p v-if="invalidModuleCode" style="margin: 0px">
           <b>Invalid module code.</b>
         </p>
         <AddModules v-on:add-module="generateGraph" />
@@ -13,9 +13,7 @@
 
       <Graph />
     </div>
-    <div>
-      <Sidebar v-on:filter-modules="filterGraph" />
-    </div>
+    <Sidebar v-on:filter-modules="filterGraph" />
   </div>
 </template>
 
@@ -66,7 +64,7 @@ export default {
     },
     openSidebar() {
       document.getElementById("main").style.marginLeft = "25%";
-      document.getElementById("sidebar").style.width = "25%";
+      document.getElementById("sidebar").style.width = "24%";
       document.getElementById("sidebar").style.display = "block";
       document.getElementById("openSidebar").style.display = "none";
     },
@@ -91,11 +89,11 @@ export default {
 </script>
 
 <style>
+select,
 input[type="text"] {
   width: 100%;
-  padding: 12px 20px;
+  padding: 12px 10px;
   margin: 8px 0;
-  display: flex;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

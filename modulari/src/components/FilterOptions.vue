@@ -117,15 +117,11 @@ export default {
 ul {
   list-style: none;
   padding: 0px;
-}
-
-li {
-  padding: 10px 0px;
+  margin: 0px;
 }
 
 label,
 select {
   display: block;
-  width: 90%;
 }
 </style>>

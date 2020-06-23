@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     closeSidebar() {
-      document.getElementById("main").style.marginLeft = "0%";
+      document.getElementById("main").style.flex = "0";
       document.getElementById("sidebar").style.display = "none";
       document.getElementById("openSidebar").style.display = "inline-block";
     },
@@ -30,7 +30,7 @@ export default {
 <style scoped>
 #sidebar {
   display: none;
-  margin-left: 10px;
+  margin: 5px;
 }
 
 button {
