@@ -30,6 +30,7 @@ export default {
 <style scoped>
 #sidebar {
   display: none;
+  margin-left: 10px;
 }
 
 button {

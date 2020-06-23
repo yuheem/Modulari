@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="filter-options">
     <form @submit="filterModules">
       <ul>
         <!-- Filter modules by level -->
@@ -120,16 +120,12 @@ ul {
 }
 
 li {
-  padding: 10px;
+  padding: 10px 0px;
 }
 
 label,
 select {
   display: block;
   width: 90%;
-}
-
-input[type="submit"] {
-  margin-right: 40px;
 }
 </style>>
