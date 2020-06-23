@@ -100,4 +100,9 @@ input[type="text"] {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+b {
+  margin: 0px;
+  color: red;
+}
 </style>
