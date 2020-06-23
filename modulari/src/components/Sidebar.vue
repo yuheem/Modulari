@@ -2,7 +2,7 @@
   <div id="sidebar">
     <button id="closeSidebar" @click="closeSidebar()">x</button>
     <h4>Filter by:</h4>
-    <FilterOptions v-on:filter-modules="$emit('filter-modules', filterDetails)" />
+    <FilterOptions v-on:filter-modules="filterOptions" />
   </div>
 </template>
 
@@ -19,6 +19,9 @@ export default {
       document.getElementById("main").style.marginLeft = "0%";
       document.getElementById("sidebar").style.display = "none";
       document.getElementById("openSidebar").style.display = "inline-block";
+    },
+    filterOptions(filterDetails) {
+      this.$emit("filter-modules", filterDetails);
     }
   }
 };
