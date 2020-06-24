@@ -6,7 +6,7 @@
         <li>
           <label for="level">Level:</label>
           <select v-model="level" name="level">
-            <option selected>All levels</option>
+            <option selected>{{NO_FILTER}}</option>
             <option v-for="lvl in levelOptions" v-bind:key="lvl.id">{{lvl.level}}</option>
           </select>
         </li>
@@ -15,7 +15,7 @@
         <li>
           <label for="faculty">Faculty:</label>
           <select v-model="faculty" name="faculty">
-            <option selected>All faculties</option>
+            <option selected>{{NO_FILTER}}</option>
             <option v-for="fac in facultyOptions" :key="fac.id">{{fac.faculty}}</option>
           </select>
         </li>
@@ -24,7 +24,7 @@
         <li>
           <label for="numOfMCs">Number of MCs:</label>
           <select v-model="numOfMCs" name="numOfMCs">
-            <option selected>All MCs</option>
+            <option selected>{{NO_FILTER}}</option>
             <option v-for="mc in numOfMCsOptions" v-bind:key="mc.id">{{mc.MCs}}</option>
           </select>
         </li>
@@ -33,7 +33,7 @@
         <li>
           <label for="exams">Exams:</label>
           <select v-model="exams" name="exams">
-            <option selected>No filter</option>
+            <option selected>{{NO_FILTER}}</option>
             <option>No Exams</option>
           </select>
         </li>
@@ -49,6 +49,7 @@ export default {
   name: "FilterOptions",
   data() {
     return {
+      NO_FILTER: "No filter",
       level: "",
       faculty: "",
       numOfMCs: "",
@@ -109,6 +110,12 @@ export default {
       // Send filter details up to parent
       this.$emit("filter-modules", filterDetails);
     }
+  },
+  created() {
+    this.level = this.NO_FILTER;
+    this.faculty = this.NO_FILTER;
+    this.numOfMCs = this.NO_FILTER;
+    this.exams = this.NO_FILTER;
   }
 };
 </script>
