@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     closeSidebar() {
-      document.getElementById("main").style.flex = "0";
       document.getElementById("sidebar").style.display = "none";
       document.getElementById("openSidebar").style.display = "inline-block";
     },
@@ -30,7 +29,9 @@ export default {
 <style scoped>
 #sidebar {
   display: none;
-  margin: 5px;
+  padding: 10px;
+  background: rgba(17, 17, 17, 0.781);
+  color: #ccc;
 }
 
 button {

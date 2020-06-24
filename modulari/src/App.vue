@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <div id="main">
-      <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
-      <Header />
+    <Header />
 
-      <span>
-        <p v-if="invalidModuleCode" style="margin: 0px">
-          <b>Invalid module code.</b>
-        </p>
-        <AddModules v-on:add-module="generateGraph" />
-      </span>
+    <div id="app-features">
+      <Sidebar v-on:filter-modules="filterGraph" />
 
-      <Graph />
+      <div id="main">
+        <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
+        <span>
+          <p v-if="invalidModuleCode" style="margin-bottom: 0px">
+            <b>Invalid module code.</b>
+          </p>
+          <AddModules v-on:add-module="generateGraph" />
+        </span>
+
+        <Graph />
+      </div>
     </div>
-    <Sidebar v-on:filter-modules="filterGraph" />
   </div>
 </template>
 
@@ -63,8 +66,9 @@ export default {
       console.log(this.modulesShownInGraph);
     },
     openSidebar() {
-      document.getElementById("main").style.marginLeft = "25%";
-      document.getElementById("sidebar").style.width = "24%";
+      document.getElementById("app-features").style.display = "flex";
+      document.getElementById("main").style.flex = "3";
+      document.getElementById("sidebar").style.width = "1";
       document.getElementById("sidebar").style.display = "block";
       document.getElementById("openSidebar").style.display = "none";
     },
@@ -89,14 +93,13 @@ export default {
 </script>
 
 <style>
-select,
-input[type="text"] {
-  width: 100%;
-  padding: 12px 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+#app,
+#app-features {
+  min-height: 100vh;
+}
+
+#main {
+  padding: 10px;
 }
 
 b {

@@ -38,8 +38,17 @@ form {
   display: flex;
 }
 
+input[type="text"] {
+  flex: 100;
+  padding: 12px 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 button[type="submit"] {
-  width: 70px;
+  flex: 2;
   padding: 12px 20px;
   margin: 8px 0;
   position: relative;

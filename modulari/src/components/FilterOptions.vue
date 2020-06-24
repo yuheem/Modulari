@@ -120,8 +120,18 @@ ul {
   margin: 0px;
 }
 
-label,
+label {
+  display: block;
+}
+
 select {
   display: block;
+  width: 100%;
+  padding: 12px 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: rgb(241, 239, 216);
 }
 </style>>
