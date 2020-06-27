@@ -39,7 +39,9 @@ export default {
   data() {
     return {
       invalidModuleCode: false,
-      modulesShownInGraph: []
+      modulesShown: [],
+      nodes: [],
+      links: [],
     };
   },
   methods: {
@@ -47,23 +49,96 @@ export default {
       // Retrieve module information from NUSMods
       console.log(academicCalendar.getAcadYear(new Date()));
       console.log(moduleCode.toUpperCase());
-      axios
-        .get(
-          "https://api.nusmods.com/v2/" +
-            `${academicCalendar.getAcadYear(new Date())}` +
-            `/modules/${moduleCode.toUpperCase()}.json`
-        )
-        .then(res => {
-          this.modulesShownInGraph.push(res.data);
-          this.invalidModuleCode = false;
-        })
-        // if module code is invalid
-        .catch(err => {
-          if (err.request) {
-            this.invalidModuleCode = true;
-          }
-        });
-      console.log(this.modulesShownInGraph);
+      
+      function addModule(moduleCode, modulesShown, nodes, links) {
+        axios
+          .get(
+            "https://api.nusmods.com/v2/" +
+              `${academicCalendar.getAcadYear(new Date())}` +
+              `/modules/${moduleCode.toUpperCase()}.json`
+          )
+          .then(res => {
+            modulesShown.push(res.data);
+            nodes.push({ name: moduleCode })
+            const sourceId = nodes.findIndex(node => node.name === moduleCode)
+            const fulfillReq = res.data.fulfillRequirements
+            if (fulfillReq) {
+              fulfillReq.forEach(moduleCode => {
+                axios
+                  .get(
+                    "https://api.nusmods.com/v2/" +
+                      `${academicCalendar.getAcadYear(new Date())}` +
+                      `/modules/${moduleCode.toUpperCase()}.json`
+                  )
+                  .then(res => {
+                    modulesShown.push(res.data);
+                  })
+                nodes.push({ name: moduleCode })
+                const targetId = nodes.findIndex(node => node.name === moduleCode)
+                links.push({ source: sourceId, target: targetId })
+              })
+            }
+
+            const tree = res.data.prereqTree
+            if (tree) {
+              if (tree.and) {
+                tree.and.forEach(node => {
+                  if (node.or) {
+                    node.or.forEach(moduleCode => {
+                      axios
+                        .get(
+                          "https://api.nusmods.com/v2/" +
+                            `${academicCalendar.getAcadYear(new Date())}` +
+                            `/modules/${moduleCode.toUpperCase()}.json`
+                        )
+                        .then(res => {
+                          modulesShown.push(res.data);
+                        })
+                      nodes.push({ name: moduleCode })
+                      const targetId = nodes.findIndex(node => node.name === moduleCode)
+                      links.push({ source: sourceId, target: targetId })
+                    })
+                  } else {
+                      axios
+                        .get(
+                          "https://api.nusmods.com/v2/" +
+                            `${academicCalendar.getAcadYear(new Date())}` +
+                            `/modules/${node.toUpperCase()}.json`
+                        )
+                        .then(res => {
+                          modulesShown.push(res.data);
+                        })
+                      nodes.push({ name: node })
+                      const targetId = nodes.findIndex(n => n.name === node)
+                      links.push({ source: sourceId, target: targetId })
+                  }
+                })
+              } else {
+                tree.forEach(moduleCode => {
+                      axios
+                        .get(
+                          "https://api.nusmods.com/v2/" +
+                            `${academicCalendar.getAcadYear(new Date())}` +
+                            `/modules/${moduleCode.toUpperCase()}.json`
+                        )
+                        .then(res => {
+                          modulesShown.push(res.data);
+                        })
+                      nodes.push({ name: moduleCode })
+                      const targetId = nodes.findIndex(node => node.name === moduleCode)
+                      links.push({ source: sourceId, target: targetId })
+                  
+                })
+              }
+            }
+          })
+          // if module code is invalid
+        console.log(modulesShown);
+      }
+
+      addModule(moduleCode, this.modulesShown, this.nodes, this.links)
+      console.log(this.nodes)
+      console.log(this.links)
     },
     openSidebar() {
       document.getElementById("app-features").style.display = "flex";
