@@ -45,18 +45,20 @@ export default {
   },
   methods: {
     addModules(moduleCode) {
-      const moduleToBeAdded = moduleCode;
-
-      getModuleInfo(moduleToBeAdded)
+      // helper function that retrieves module information via a http request from nusmods
+      getModuleInfo(moduleCode)
         .then(moduleInfo => {
           this.invalidModuleCode = false;
           this.modulesShown.push(moduleInfo);
-          this.nodes.push({ name: moduleToBeAdded });
+          this.nodes.push({ name: moduleCode });
           const sourceId = this.nodes.findIndex(
-            node => node.name === moduleToBeAdded
+            node => node.name === moduleCode
           );
           const tree = moduleInfo.prereqTree;
+
+          // If module added has prerequisites
           if (tree) {
+            // helper function that builds the prerequisite tree to be displayed
             handlePrereqTree(
               tree,
               sourceId,
@@ -66,6 +68,7 @@ export default {
             );
           }
         })
+        // Checks for http request error in the event of invalid module code added
         .catch(e => {
           if (e.request) {
             this.invalidModuleCode = true;
