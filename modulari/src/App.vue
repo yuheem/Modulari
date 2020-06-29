@@ -14,7 +14,7 @@
           <AddModules v-on:add-module="generateGraph" />
         </span>
 
-        <Graph />
+        <Graph :nodes="nodes" :links="links" />
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@ export default {
                   })
                 nodes.push({ name: moduleCode })
                 const targetId = nodes.findIndex(node => node.name === moduleCode)
-                links.push({ source: sourceId, target: targetId })
+                links.push({ sid: sourceId, tid: targetId })
               })
             }
 
@@ -96,7 +96,7 @@ export default {
                         })
                       nodes.push({ name: moduleCode })
                       const targetId = nodes.findIndex(node => node.name === moduleCode)
-                      links.push({ source: sourceId, target: targetId })
+                      links.push({ sid: sourceId, tid: targetId })
                     })
                   } else {
                       axios
@@ -110,7 +110,7 @@ export default {
                         })
                       nodes.push({ name: node })
                       const targetId = nodes.findIndex(n => n.name === node)
-                      links.push({ source: sourceId, target: targetId })
+                      links.push({ sid: sourceId, tid: targetId })
                   }
                 })
               } else {
@@ -126,7 +126,7 @@ export default {
                         })
                       nodes.push({ name: moduleCode })
                       const targetId = nodes.findIndex(node => node.name === moduleCode)
-                      links.push({ source: sourceId, target: targetId })
+                      links.push({ sid: sourceId, tid: targetId })
                   
                 })
               }
@@ -136,7 +136,7 @@ export default {
         console.log(modulesShown);
       }
 
-      addModule(moduleCode, this.modulesShown, this.nodes, this.links)
+      addModule(moduleCode.toUpperCase(), this.modulesShown, this.nodes, this.links)
       console.log(this.nodes)
       console.log(this.links)
     },
