@@ -45,14 +45,16 @@ export default {
   },
   methods: {
     addModules(moduleCode) {
+      const moduleToBeAdded = moduleCode.toUpperCase();
+
       // helper function that retrieves module information via a http request from nusmods
-      getModuleInfo(moduleCode)
+      getModuleInfo(moduleToBeAdded)
         .then(moduleInfo => {
           this.invalidModuleCode = false;
           this.modulesShown.push(moduleInfo);
-          this.nodes.push({ name: moduleCode });
+          this.nodes.push({ name: moduleToBeAdded });
           const sourceId = this.nodes.findIndex(
-            node => node.name === moduleCode
+            node => node.name === moduleToBeAdded
           );
           const tree = moduleInfo.prereqTree;
 
