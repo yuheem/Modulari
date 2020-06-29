@@ -20,7 +20,7 @@ export default {
     options() {
       return {
         canvas: false,
-        force: 2000,
+        force: 6000,
         nodeSize: 25,
         fontSize: 20,
         size: {

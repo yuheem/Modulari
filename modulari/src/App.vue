@@ -49,90 +49,59 @@ export default {
       // Retrieve module information from NUSMods
       console.log(academicCalendar.getAcadYear(new Date()));
       console.log(moduleCode.toUpperCase());
-      
-      function addModule(moduleCode, modulesShown, nodes, links) {
-        axios
+
+      function getModuleInfo(moduleCode) {
+        return axios
           .get(
             "https://api.nusmods.com/v2/" +
               `${academicCalendar.getAcadYear(new Date())}` +
               `/modules/${moduleCode.toUpperCase()}.json`
           )
-          .then(res => {
-            modulesShown.push(res.data);
-            nodes.push({ name: moduleCode })
-            const sourceId = nodes.findIndex(node => node.name === moduleCode)
-            const fulfillReq = res.data.fulfillRequirements
-            if (fulfillReq) {
-              fulfillReq.forEach(moduleCode => {
-                axios
-                  .get(
-                    "https://api.nusmods.com/v2/" +
-                      `${academicCalendar.getAcadYear(new Date())}` +
-                      `/modules/${moduleCode.toUpperCase()}.json`
-                  )
-                  .then(res => {
-                    modulesShown.push(res.data);
-                  })
-                nodes.push({ name: moduleCode })
-                const targetId = nodes.findIndex(node => node.name === moduleCode)
-                links.push({ sid: sourceId, tid: targetId })
-              })
-            }
-
-            const tree = res.data.prereqTree
-            if (tree) {
-              if (tree.and) {
-                tree.and.forEach(node => {
-                  if (node.or) {
-                    node.or.forEach(moduleCode => {
-                      axios
-                        .get(
-                          "https://api.nusmods.com/v2/" +
-                            `${academicCalendar.getAcadYear(new Date())}` +
-                            `/modules/${moduleCode.toUpperCase()}.json`
-                        )
-                        .then(res => {
-                          modulesShown.push(res.data);
-                        })
-                      nodes.push({ name: moduleCode })
-                      const targetId = nodes.findIndex(node => node.name === moduleCode)
-                      links.push({ sid: sourceId, tid: targetId })
-                    })
-                  } else {
-                      axios
-                        .get(
-                          "https://api.nusmods.com/v2/" +
-                            `${academicCalendar.getAcadYear(new Date())}` +
-                            `/modules/${node.toUpperCase()}.json`
-                        )
-                        .then(res => {
-                          modulesShown.push(res.data);
-                        })
-                      nodes.push({ name: node })
-                      const targetId = nodes.findIndex(n => n.name === node)
-                      links.push({ sid: sourceId, tid: targetId })
-                  }
-                })
-              } else {
-                tree.forEach(moduleCode => {
-                      axios
-                        .get(
-                          "https://api.nusmods.com/v2/" +
-                            `${academicCalendar.getAcadYear(new Date())}` +
-                            `/modules/${moduleCode.toUpperCase()}.json`
-                        )
-                        .then(res => {
-                          modulesShown.push(res.data);
-                        })
-                      nodes.push({ name: moduleCode })
-                      const targetId = nodes.findIndex(node => node.name === moduleCode)
-                      links.push({ sid: sourceId, tid: targetId })
-                  
-                })
-              }
+          .then(res => res.data)
+          .catch(e => {
+            if (e.request) {
+              this.invalidModuleCode = true;
             }
           })
-          // if module code is invalid
+      }
+
+      function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
+        if (tree.and) {
+          tree.and.forEach(n => handlePrereqTree(n, sourceId, modulesShown, nodes, links))
+        } else if (tree.or) {
+          tree.or.forEach(n => handlePrereqTree(n, sourceId, modulesShown, nodes, links))
+        } else {
+          getModuleInfo(tree)
+            .then(moduleInfo => {
+              const moduleCode = moduleInfo.moduleCode
+              const exists = modulesShown.find(module => module.moduleCode === moduleCode)
+              if (!exists) {
+              modulesShown.push(moduleInfo)
+              nodes.push({ name: moduleCode})
+              const targetId = nodes.findIndex(node => node.name === moduleCode)
+              links.push({ sid: sourceId, tid: targetId })
+              }
+
+              const newSourceId = nodes.findIndex(node => node.name === moduleCode)
+              const newTree = moduleInfo.prereqTree
+              if (tree) {
+                handlePrereqTree(newTree, newSourceId, modulesShown, nodes, links)
+              }
+            })
+        }
+      }
+      
+      function addModule(moduleCode, modulesShown, nodes, links) {
+        getModuleInfo(moduleCode)
+          .then(moduleInfo => {
+            modulesShown.push(moduleInfo);
+            nodes.push({ name: moduleCode })
+            const sourceId = nodes.findIndex(node => node.name === moduleCode)
+            const tree = moduleInfo.prereqTree
+            if (tree) {
+              handlePrereqTree(tree, sourceId, modulesShown, nodes, links)
+            }
+          })
         console.log(modulesShown);
       }
 
