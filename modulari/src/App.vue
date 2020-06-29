@@ -11,7 +11,7 @@
           <p v-if="invalidModuleCode" style="margin-bottom: 0px">
             <b>Invalid module code.</b>
           </p>
-          <AddModules v-on:add-module="generateGraph" />
+          <AddModules v-on:add-module="addModules" />
         </span>
 
         <Graph :nodes="nodes" :links="links" />
@@ -21,12 +21,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import academicCalendar from "./assets/js/academicCalendar.js";
 import AddModules from "./components/AddModules";
 import Sidebar from "./components/Sidebar";
 import Graph from "./components/Graph";
 import Header from "./components/layout/Header";
+import { getModuleInfo, handlePrereqTree } from "./assets/js/helper.js";
 
 export default {
   name: "App",
@@ -41,73 +40,37 @@ export default {
       invalidModuleCode: false,
       modulesShown: [],
       nodes: [],
-      links: [],
+      links: []
     };
   },
   methods: {
-    generateGraph(moduleCode) {
-      // Retrieve module information from NUSMods
-      console.log(academicCalendar.getAcadYear(new Date()));
-      console.log(moduleCode.toUpperCase());
+    addModules(moduleCode) {
+      const moduleToBeAdded = moduleCode;
 
-      function getModuleInfo(moduleCode) {
-        return axios
-          .get(
-            "https://api.nusmods.com/v2/" +
-              `${academicCalendar.getAcadYear(new Date())}` +
-              `/modules/${moduleCode.toUpperCase()}.json`
-          )
-          .then(res => res.data)
-          .catch(e => {
-            if (e.request) {
-              this.invalidModuleCode = true;
-            }
-          })
-      }
-
-      function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
-        if (tree.and) {
-          tree.and.forEach(n => handlePrereqTree(n, sourceId, modulesShown, nodes, links))
-        } else if (tree.or) {
-          tree.or.forEach(n => handlePrereqTree(n, sourceId, modulesShown, nodes, links))
-        } else {
-          getModuleInfo(tree)
-            .then(moduleInfo => {
-              const moduleCode = moduleInfo.moduleCode
-              const exists = modulesShown.find(module => module.moduleCode === moduleCode)
-              if (!exists) {
-              modulesShown.push(moduleInfo)
-              nodes.push({ name: moduleCode})
-              const targetId = nodes.findIndex(node => node.name === moduleCode)
-              links.push({ sid: sourceId, tid: targetId })
-              }
-
-              const newSourceId = nodes.findIndex(node => node.name === moduleCode)
-              const newTree = moduleInfo.prereqTree
-              if (tree) {
-                handlePrereqTree(newTree, newSourceId, modulesShown, nodes, links)
-              }
-            })
-        }
-      }
-      
-      function addModule(moduleCode, modulesShown, nodes, links) {
-        getModuleInfo(moduleCode)
-          .then(moduleInfo => {
-            modulesShown.push(moduleInfo);
-            nodes.push({ name: moduleCode })
-            const sourceId = nodes.findIndex(node => node.name === moduleCode)
-            const tree = moduleInfo.prereqTree
-            if (tree) {
-              handlePrereqTree(tree, sourceId, modulesShown, nodes, links)
-            }
-          })
-        console.log(modulesShown);
-      }
-
-      addModule(moduleCode.toUpperCase(), this.modulesShown, this.nodes, this.links)
-      console.log(this.nodes)
-      console.log(this.links)
+      getModuleInfo(moduleToBeAdded)
+        .then(moduleInfo => {
+          this.invalidModuleCode = false;
+          this.modulesShown.push(moduleInfo);
+          this.nodes.push({ name: moduleToBeAdded });
+          const sourceId = this.nodes.findIndex(
+            node => node.name === moduleToBeAdded
+          );
+          const tree = moduleInfo.prereqTree;
+          if (tree) {
+            handlePrereqTree(
+              tree,
+              sourceId,
+              this.modulesShown,
+              this.nodes,
+              this.links
+            );
+          }
+        })
+        .catch(e => {
+          if (e.request) {
+            this.invalidModuleCode = true;
+          }
+        });
     },
     openSidebar() {
       document.getElementById("app-features").style.display = "flex";
