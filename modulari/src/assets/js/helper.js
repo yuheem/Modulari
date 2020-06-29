@@ -8,7 +8,8 @@ export function getModuleInfo(moduleCode) {
         `${academicCalendar.getAcadYear(new Date())}` +
         `/modules/${moduleCode.toUpperCase()}.json`
     )
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((e) => console.log(e));
 }
 
 export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
@@ -21,23 +22,25 @@ export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
       handlePrereqTree(n, sourceId, modulesShown, nodes, links)
     );
   } else {
-    getModuleInfo(tree).then((moduleInfo) => {
-      const moduleCode = moduleInfo.moduleCode;
-      const exists = modulesShown.find(
-        (module) => module.moduleCode === moduleCode
-      );
-      if (!exists) {
-        modulesShown.push(moduleInfo);
-        nodes.push({ name: moduleCode });
-        const targetId = nodes.findIndex((node) => node.name === moduleCode);
-        links.push({ sid: sourceId, tid: targetId });
-      }
+    getModuleInfo(tree)
+      .then((moduleInfo) => {
+        const moduleCode = moduleInfo.moduleCode;
+        const exists = modulesShown.find(
+          (module) => module.moduleCode === moduleCode
+        );
+        if (!exists) {
+          modulesShown.push(moduleInfo);
+          nodes.push({ name: moduleCode });
+          const targetId = nodes.findIndex((node) => node.name === moduleCode);
+          links.push({ sid: sourceId, tid: targetId });
+        }
 
-      const newSourceId = nodes.findIndex((node) => node.name === moduleCode);
-      const newTree = moduleInfo.prereqTree;
-      if (tree) {
-        handlePrereqTree(newTree, newSourceId, modulesShown, nodes, links);
-      }
-    });
+        const newSourceId = nodes.findIndex((node) => node.name === moduleCode);
+        const newTree = moduleInfo.prereqTree;
+        if (tree) {
+          handlePrereqTree(newTree, newSourceId, modulesShown, nodes, links);
+        }
+      })
+      .catch((e) => console.log(e));
   }
 }
