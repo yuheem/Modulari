@@ -8,8 +8,7 @@ export function getModuleInfo(moduleCode) {
         `${academicCalendar.getAcadYear(new Date())}` +
         `/modules/${moduleCode.toUpperCase()}.json`
     )
-    .then((res) => res.data)
-    .catch((e) => console.log(e));
+    .then((res) => res.data);
 }
 
 export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {

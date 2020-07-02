@@ -8,8 +8,9 @@
       <div id="main">
         <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
         <span>
-          <p v-if="invalidModuleCode" style="margin-bottom: 0px">
-            <b>Invalid module code.</b>
+          <p style="margin-bottom: 0px">
+            <b v-if="invalidModuleCode">Invalid module code.</b>
+            <b v-if="modulePresent">Module is already shown</b>
           </p>
           <AddModules v-on:add-module="addModules" />
         </span>
@@ -38,6 +39,7 @@ export default {
   data() {
     return {
       invalidModuleCode: false,
+      modulePresent: false,
       modulesShown: [],
       nodes: [],
       links: []
@@ -51,29 +53,41 @@ export default {
       getModuleInfo(moduleToBeAdded)
         .then(moduleInfo => {
           this.invalidModuleCode = false;
-          this.modulesShown.push(moduleInfo);
-          this.nodes.push({ name: moduleToBeAdded });
-          const sourceId = this.nodes.findIndex(
-            node => node.name === moduleToBeAdded
-          );
-          const tree = moduleInfo.prereqTree;
 
-          // If module added has prerequisites
-          if (tree) {
-            // helper function that builds the prerequisite tree to be displayed
-            handlePrereqTree(
-              tree,
-              sourceId,
-              this.modulesShown,
-              this.nodes,
-              this.links
+          const moduleCode = moduleInfo.moduleCode;
+          const exists = this.modulesShown.find(
+            module => module.moduleCode === moduleCode
+          );
+
+          if (exists) {
+            this.modulePresent = true;
+          } else {
+            this.modulePresent = false;
+            this.modulesShown.push(moduleInfo);
+            this.nodes.push({ name: moduleToBeAdded });
+            const sourceId = this.nodes.findIndex(
+              node => node.name === moduleToBeAdded
             );
+            const tree = moduleInfo.prereqTree;
+
+            // If module added has prerequisites
+            if (tree) {
+              // helper function that builds the prerequisite tree to be displayed
+              handlePrereqTree(
+                tree,
+                sourceId,
+                this.modulesShown,
+                this.nodes,
+                this.links
+              );
+            }
           }
         })
         // Checks for http request error in the event of invalid module code added
         .catch(e => {
           if (e.request) {
             this.invalidModuleCode = true;
+            this.modulePresent = false;
           }
         });
     },
