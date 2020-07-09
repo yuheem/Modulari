@@ -12,6 +12,7 @@ export function getModuleInfo(moduleCode) {
 }
 
 export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
+  // Try to get rid of error later
   if (tree.and) {
     tree.and.forEach((n) =>
       handlePrereqTree(n, sourceId, modulesShown, nodes, links)
@@ -31,7 +32,7 @@ export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
           modulesShown.push(moduleInfo);
           nodes.push({ name: moduleCode });
           const targetId = nodes.findIndex((node) => node.name === moduleCode);
-          links.push({ sid: sourceId, tid: targetId });
+          links.push({ source: sourceId, target: targetId });
         }
 
         const newSourceId = nodes.findIndex((node) => node.name === moduleCode);

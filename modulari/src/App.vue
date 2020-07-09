@@ -6,7 +6,11 @@
       <Sidebar v-on:filter-modules="filterGraph" />
 
       <div id="main">
-        <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
+        <button
+          id="openSidebar"
+          @click="openSidebar()"
+          class="fas fa-angle-right"
+        ></button>
         <span>
           <p style="margin-bottom: 0px">
             <b v-if="invalidModuleCode">Invalid module code.</b>
@@ -15,7 +19,8 @@
           <AddModules v-on:add-module="addModules" />
         </span>
 
-        <Graph :nodes="nodes" :links="links" />
+        <!-- <Graph :nodes="nodes" :links="links" /> -->
+        <TestGraph :nodes="nodes" :links="links" />
       </div>
     </div>
   </div>
@@ -24,7 +29,8 @@
 <script>
 import AddModules from "./components/AddModules";
 import Sidebar from "./components/Sidebar";
-import Graph from "./components/Graph";
+// import Graph from "./components/Graph";
+import TestGraph from "./components/TestGraph";
 import Header from "./components/layout/Header";
 import { getModuleInfo, handlePrereqTree } from "./assets/js/helper.js";
 
@@ -34,7 +40,8 @@ export default {
     AddModules,
     Sidebar,
     Header,
-    Graph
+    TestGraph,
+    // Graph
   },
   data() {
     return {
@@ -42,7 +49,7 @@ export default {
       modulePresent: false,
       modulesShown: [],
       nodes: [],
-      links: []
+      links: [],
     };
   },
   methods: {
@@ -51,12 +58,12 @@ export default {
 
       // helper function that retrieves module information via a http request from nusmods
       getModuleInfo(moduleToBeAdded)
-        .then(moduleInfo => {
+        .then((moduleInfo) => {
           this.invalidModuleCode = false;
 
           const moduleCode = moduleInfo.moduleCode;
           const exists = this.modulesShown.find(
-            module => module.moduleCode === moduleCode
+            (module) => module.moduleCode === moduleCode
           );
 
           if (exists) {
@@ -66,7 +73,7 @@ export default {
             this.modulesShown.push(moduleInfo);
             this.nodes.push({ name: moduleToBeAdded });
             const sourceId = this.nodes.findIndex(
-              node => node.name === moduleToBeAdded
+              (node) => node.name === moduleToBeAdded
             );
             const tree = moduleInfo.prereqTree;
 
@@ -84,7 +91,7 @@ export default {
           }
         })
         // Checks for http request error in the event of invalid module code added
-        .catch(e => {
+        .catch((e) => {
           if (e.request) {
             this.invalidModuleCode = true;
             this.modulePresent = false;
@@ -104,7 +111,7 @@ export default {
         filteredLevel,
         filteredFaculty,
         filteredNumOfMCs,
-        filteredExams
+        filteredExams,
       } = filterDetails;
 
       console.log(
@@ -113,8 +120,8 @@ export default {
         filteredNumOfMCs,
         filteredExams
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
