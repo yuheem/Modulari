@@ -24,20 +24,24 @@
           stroke="grey"
           stroke-width="1.5px"
           v-bind:d="
-            `M ${link.source.x},${link.source.y} L ${link.target.x},${link.target.y}`
+            `M ${Math.max(20, link.source.x)},${Math.max(20, link.source.y)} L ${Math.max(20, link.target.x)},${Math.max(20, link.target.y)}`
           "
         />
       </g>
 
       <g v-for="node in nodes" :key="node.name">
-        <circle fill="lightblue" v-bind:transform="`translate(${node.x},${node.y})`" r="20" />
+        <circle
+          fill="lightblue"
+          v-bind:transform="`translate(${Math.max(20, node.x)},${Math.max(20, node.y)})`"
+          r="20"
+        />
         <text
           font="10px san-serif"
           color="black"
           x="0"
           y="0.31em"
           text-anchor="middle"
-          v-bind:transform="`translate(${node.x},${node.y})`"
+          v-bind:transform="`translate(${Math.max(20, node.x)},${Math.max(20, node.y)})`"
         >{{node.name}}</text>
       </g>
     </svg>
@@ -45,7 +49,8 @@
 </template>
 
 <script>
-import * as d3 from "d3-force";
+// try using the entire d3
+import * as d3 from "d3";
 
 export default {
   name: "TestGraph",
@@ -55,7 +60,7 @@ export default {
       simulation: null,
       forceProperties: {
         charge: {
-          strength: -300,
+          strength: -500,
           distanceMin: 100,
           distanceMax: 200
         },
@@ -95,6 +100,10 @@ export default {
     console.log("simulation creation complete!");
   },
   methods: {
+    // tick() {
+    //   this.updateSimulation();
+    //   this.setForceProperties();
+    // },
     updateSimulation() {
       this.simulation.nodes(this.nodes);
       this.simulation.force("link").links(this.links);
