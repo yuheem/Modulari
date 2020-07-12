@@ -12,7 +12,6 @@ export function getModuleInfo(moduleCode) {
 }
 
 export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
-  // Try to get rid of error later
   if (tree.and) {
     tree.and.forEach((n) =>
       handlePrereqTree(n, sourceId, modulesShown, nodes, links)
@@ -30,10 +29,12 @@ export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
         );
         if (!exists) {
           modulesShown.push(moduleInfo);
-          nodes.push({ name: moduleCode });
+          const moduleLevel = getLevelOfModule(moduleCode);
+          nodes.push({ name: moduleCode, level: moduleLevel });
         }
         const targetId = nodes.findIndex((node) => node.name === moduleCode);
         links.push({ source: sourceId, target: targetId });
+
         const newSourceId = nodes.findIndex((node) => node.name === moduleCode);
         const newTree = moduleInfo.prereqTree;
         if (tree) {
@@ -42,4 +43,12 @@ export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
       })
       .catch((e) => console.log(e));
   }
+}
+
+export function getLevelOfModule(moduleCode) {
+  // Extract only the numbers in the module code
+  const moduleCodeNumbers = moduleCode.match(/[0-9]/g);
+
+  // First number in the module code indicates level of module
+  return moduleCodeNumbers[0];
 }

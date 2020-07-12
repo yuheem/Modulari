@@ -5,7 +5,7 @@
         <marker
           id="arrow"
           viewBox="0 -5 10 10"
-          refX="100"
+          refX="65"
           refY="0"
           markerWidth="6"
           markerHeight="6"
@@ -53,7 +53,7 @@ export default {
         collide: {
           strength: 0.7,
           iterations: 1,
-          radius: 100
+          radius: 200
         },
         forceX: {
           strength: 0.1,
@@ -137,18 +137,15 @@ export default {
       this.graph
         .selectAll("path")
         .data(this.simulation.force("link").links())
-        .join("path")
-        .attr("marker-end", "url(#arrow)")
-        .attr("stroke", "grey")
-        .attr("stoke-width", "1.5px");
+        .join("path");
 
       this.graph.selectAll("circle").remove();
       this.graph
         .selectAll("circle")
         .data(this.simulation.nodes())
         .join("circle")
-        .attr("fill", "lightblue")
         .attr("r", "50")
+        .attr("class", d => "level" + d.level)
         .call(
           d3
             .drag()
@@ -162,11 +159,8 @@ export default {
         .selectAll("text")
         .data(this.simulation.nodes())
         .join("text")
-        .attr("color", "black")
-        .attr("font", "10px san-serif")
         .attr("x", "0")
         .attr("y", "0.31em")
-        .attr("text-anchor", "middle")
         .text(d => d.name);
 
       this.simulation.alpha(1).restart();
@@ -247,14 +241,54 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #test-graph {
   width: 100%;
   height: 100vh;
 }
 
 text {
-  font: 10px san-serif;
+  font: 20px san-serif;
   color: black;
+  text-anchor: middle;
+}
+
+circle {
+  stroke: black;
+  stroke-width: 3;
+}
+
+.level1 {
+  fill: #ff828c;
+}
+
+.level2 {
+  fill: #fac292;
+}
+
+.level3 {
+  fill: #fdf4ab;
+}
+
+.level4 {
+  fill: #e2f0cb;
+}
+
+.level5 {
+  fill: #b5ead7;
+}
+
+.level6 {
+  fill: #aab3f3;
+}
+
+.level8 {
+  fill: #dbb5f7;
+}
+
+path {
+  marker-end: url(#arrow);
+  stroke: black;
+  stroke-width: 1.5px;
 }
 </style>

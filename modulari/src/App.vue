@@ -28,7 +28,11 @@ import Sidebar from "./components/Sidebar";
 // import Graph from "./components/Graph";
 import TestGraph from "./components/TestGraph";
 import Header from "./components/layout/Header";
-import { getModuleInfo, handlePrereqTree } from "./assets/js/helper.js";
+import {
+  getModuleInfo,
+  handlePrereqTree,
+  getLevelOfModule
+} from "./assets/js/helper.js";
 
 export default {
   name: "App",
@@ -67,7 +71,9 @@ export default {
           } else {
             this.modulePresent = false;
             this.modulesShown.push(moduleInfo);
-            this.nodes.push({ name: moduleToBeAdded });
+
+            const moduleLevel = getLevelOfModule(moduleToBeAdded);
+            this.nodes.push({ name: moduleToBeAdded, level: moduleLevel });
             const sourceId = this.nodes.findIndex(
               node => node.name === moduleToBeAdded
             );
