@@ -31,10 +31,9 @@ export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
         if (!exists) {
           modulesShown.push(moduleInfo);
           nodes.push({ name: moduleCode });
-          const targetId = nodes.findIndex((node) => node.name === moduleCode);
-          links.push({ source: sourceId, target: targetId });
         }
-
+        const targetId = nodes.findIndex((node) => node.name === moduleCode);
+        links.push({ source: sourceId, target: targetId });
         const newSourceId = nodes.findIndex((node) => node.name === moduleCode);
         const newTree = moduleInfo.prereqTree;
         if (tree) {

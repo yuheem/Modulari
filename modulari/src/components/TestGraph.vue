@@ -5,7 +5,7 @@
         <marker
           id="arrow"
           viewBox="0 -5 10 10"
-          refX="60"
+          refX="100"
           refY="0"
           markerWidth="6"
           markerHeight="6"
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-// try using the entire d3
 import * as d3 from "d3";
 
 export default {
@@ -132,6 +131,8 @@ export default {
       this.simulation.nodes(this.nodes);
       this.simulation.force("link").links(this.links);
 
+      console.log("nodes and links set");
+
       this.graph.selectAll("path").remove();
       this.graph
         .selectAll("path")
@@ -147,7 +148,7 @@ export default {
         .data(this.simulation.nodes())
         .join("circle")
         .attr("fill", "lightblue")
-        .attr("r", "30")
+        .attr("r", "50")
         .call(
           d3
             .drag()
@@ -227,6 +228,11 @@ export default {
     }
   },
   watch: {
+    links: {
+      handler() {
+        this.updateSimulation();
+      }
+    },
     nodes: {
       handler() {
         this.updateSimulation();
