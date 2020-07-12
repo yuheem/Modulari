@@ -13,8 +13,20 @@
         >
           <path d="M0,-5 L10,0 L0,5" />
         </marker>
+        <pattern id="innerGrid" :width="10" :height="10" patternUnits="userSpaceOnUse">
+          <rect width="100%" height="100%" fill="none" stroke="#CCCCCC7A" stroke-width="0.5" />
+        </pattern>
+        <pattern id="grid" :width="100" :height="100" patternUnits="userSpaceOnUse">
+          <rect
+            width="100%"
+            height="100%"
+            fill="url(#innerGrid)"
+            stroke="#CCCCCC7A"
+            stroke-width="1.5"
+          />
+        </pattern>
       </defs>
-      <rect width="100%" height="100vh" fill="blanchedalmond" />
+      <rect width="100%" height="100vh" fill="url(#grid)" />
       <g />
     </svg>
   </div>
