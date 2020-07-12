@@ -27,13 +27,24 @@ export function handlePrereqTree(tree, sourceId, modulesShown, nodes, links) {
         const exists = modulesShown.find(
           (module) => module.moduleCode === moduleCode
         );
+
+        // Check if module is already present
         if (!exists) {
           modulesShown.push(moduleInfo);
           const moduleLevel = getLevelOfModule(moduleCode);
           nodes.push({ name: moduleCode, level: moduleLevel });
         }
+
         const targetId = nodes.findIndex((node) => node.name === moduleCode);
-        links.push({ source: sourceId, target: targetId });
+        const linkExists = links.find(
+          (link) =>
+            link.source.index == sourceId && link.target.index == targetId
+        );
+
+        // Check if link is already present
+        if (!linkExists) {
+          links.push({ source: sourceId, target: targetId });
+        }
 
         const newSourceId = nodes.findIndex((node) => node.name === moduleCode);
         const newTree = moduleInfo.prereqTree;
