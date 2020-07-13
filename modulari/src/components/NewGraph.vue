@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div style="position: relative">
+    <ModuleInfo
+      :moduleInfo="clickedModuleInfo"
+      :viewModuleInfo="viewModuleInfo"
+      v-on:hide-module-info="hideModuleInfo"
+    />
+
     <svg width="100%" height="100vh" id="test-graph">
       <defs>
         <marker
@@ -34,10 +40,14 @@
 
 <script>
 import * as d3 from "d3";
+import ModuleInfo from "./ModuleInfo";
 
 export default {
-  name: "TestGraph",
-  props: ["nodes", "links"],
+  name: "NewGraph",
+  components: {
+    ModuleInfo
+  },
+  props: ["nodes", "links", "modulesShown"],
   data() {
     return {
       width: null,
@@ -68,7 +78,9 @@ export default {
           distance: 100,
           iterations: 1
         }
-      }
+      },
+      viewModuleInfo: false,
+      clickedModuleInfo: null
     };
   },
   created() {
@@ -144,6 +156,7 @@ export default {
         .selectAll("circle")
         .data(this.simulation.nodes())
         .join("circle")
+        .attr("id", d => d.name)
         .attr("r", "50")
         .attr("class", d => "level" + d.level)
         .call(
@@ -152,7 +165,8 @@ export default {
             .on("start", this.nodeDragStart)
             .on("drag", this.nodeDrag)
             .on("end", this.nodeDragEnd)
-        );
+        )
+        .on("click", this.showModuleInfo);
 
       this.graph.selectAll("text").remove();
       this.graph
@@ -161,6 +175,7 @@ export default {
         .join("text")
         .attr("x", "0")
         .attr("y", "0.31em")
+        .attr("text-anchor", "middle")
         .text(d => d.name);
 
       this.simulation.alpha(1).restart();
@@ -219,6 +234,16 @@ export default {
 
       node.fx = null;
       node.fy = null;
+    },
+    showModuleInfo(moduleData) {
+      d3.select("#overlay").attr("display", "block");
+      this.viewModuleInfo = true;
+      const moduleInfo = this.modulesShown[moduleData.index];
+
+      this.clickedModuleInfo = moduleInfo;
+    },
+    hideModuleInfo(hideInfo) {
+      this.viewModuleInfo = hideInfo;
     }
   },
   watch: {
@@ -250,7 +275,6 @@ export default {
 text {
   font: 20px san-serif;
   color: black;
-  text-anchor: middle;
 }
 
 circle {

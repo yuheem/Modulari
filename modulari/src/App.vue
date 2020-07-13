@@ -15,8 +15,7 @@
           <AddModules v-on:add-module="addModules" />
         </span>
 
-        <!-- <Graph :nodes="nodes" :links="links" /> -->
-        <TestGraph :nodes="nodes" :links="links" />
+        <NewGraph :nodes="nodes" :links="links" :modulesShown="modulesShown" />
       </div>
     </div>
   </div>
@@ -25,8 +24,7 @@
 <script>
 import AddModules from "./components/AddModules";
 import Sidebar from "./components/Sidebar";
-// import Graph from "./components/Graph";
-import TestGraph from "./components/TestGraph";
+import NewGraph from "./components/NewGraph";
 import Header from "./components/layout/Header";
 import {
   getModuleInfo,
@@ -40,8 +38,7 @@ export default {
     AddModules,
     Sidebar,
     Header,
-    TestGraph
-    // Graph
+    NewGraph
   },
   data() {
     return {
