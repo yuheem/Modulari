@@ -6,7 +6,7 @@
     <p>{{this.moduleInfo.moduleCode}}</p>
     <p>{{this.moduleInfo.title}}</p>
     <p>{{`Number of MCs: ${this.moduleInfo.moduleCredit}`}}</p>
-    <p>{{'Exam: '}}</p>
+    <p>{{`Exam: ${this.getExamInfo(this.moduleInfo)}`}}</p>
 
     <p v-if="checkSU()">
       <i class="far fa-check-circle" style="color: #77DD77"></i>
@@ -18,12 +18,14 @@
     </p>
     <p>
       <a href="https:nusmods.com">Click me</a>
-      to find out more about the module test test test
+      to find out more about the module
     </p>
   </div>
 </template>
 
 <script>
+import { format } from "date-fns";
+
 export default {
   name: "ModuleInfo",
   props: ["moduleInfo", "viewModuleInfo"],
@@ -36,6 +38,19 @@ export default {
     },
     checkSU() {
       return "attributes" in this.moduleInfo;
+    },
+    getExamInfo(moduleInfo) {
+      const examinable = "examDate" in moduleInfo.semesterData[0];
+
+      // If module is examinable, retrieve the date of the exam and convert it from ISO to long date format
+      if (examinable) {
+        const examDate = moduleInfo.semesterData[0].examDate;
+        const longExamDate = format(new Date(examDate), "d MMMM yyyy");
+        return longExamDate;
+      }
+
+      // If module is non-examinable
+      return "No exam";
     }
   }
 };
