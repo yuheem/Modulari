@@ -40,13 +40,15 @@ export default {
       return "attributes" in this.moduleInfo;
     },
     getExamInfo(moduleInfo) {
-      const examinable = "examDate" in moduleInfo.semesterData[0];
+      if (moduleInfo.semesterData.length !== 0) {
+        const examinable = "examDate" in moduleInfo.semesterData[0];
 
-      // If module is examinable, retrieve the date of the exam and convert it from ISO to long date format
-      if (examinable) {
-        const examDate = moduleInfo.semesterData[0].examDate;
-        const longExamDate = format(new Date(examDate), "d MMMM yyyy");
-        return longExamDate;
+        // If module is examinable, retrieve the date of the exam and convert it from ISO to long date format
+        if (examinable) {
+          const examDate = moduleInfo.semesterData[0].examDate;
+          const longExamDate = format(new Date(examDate), "d MMMM yyyy");
+          return longExamDate;
+        }
       }
 
       // If module is non-examinable

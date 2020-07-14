@@ -15,7 +15,7 @@
           <AddModules v-on:add-module="addModules" />
         </span>
 
-        <NewGraph :nodes="nodes" :links="links" :modulesShown="modulesShown" />
+        <NewGraph :nodes="nodes" :links="links" :modulesShown="modulesShown" :filtered="filtered" />
       </div>
     </div>
   </div>
@@ -46,12 +46,20 @@ export default {
       modulePresent: false,
       modulesShown: [],
       nodes: [],
-      links: []
+      links: [],
+      filtered: {
+        level: "No filter",
+        faculty: "No filter",
+        numOfMCs: "No filter",
+        exams: "No filter"
+      }
     };
   },
   methods: {
     addModules(moduleCode) {
       const moduleToBeAdded = moduleCode.toUpperCase();
+      const updateNodes = this.nodes;
+      const updateLinks = this.links;
 
       // helper function that retrieves module information via a http request from nusmods
       getModuleInfo(moduleToBeAdded)
@@ -70,8 +78,8 @@ export default {
             this.modulesShown.push(moduleInfo);
 
             const moduleLevel = getLevelOfModule(moduleToBeAdded);
-            this.nodes.push({ name: moduleToBeAdded, level: moduleLevel });
-            const sourceId = this.nodes.findIndex(
+            updateNodes.push({ name: moduleToBeAdded, level: moduleLevel });
+            const sourceId = updateNodes.findIndex(
               node => node.name === moduleToBeAdded
             );
             const tree = moduleInfo.prereqTree;
@@ -83,8 +91,8 @@ export default {
                 tree,
                 sourceId,
                 this.modulesShown,
-                this.nodes,
-                this.links
+                updateNodes,
+                updateLinks
               );
             }
           }
@@ -105,7 +113,6 @@ export default {
       document.getElementById("openSidebar").style.display = "none";
     },
     filterGraph(filterDetails) {
-      // Test if data was transferred correctly
       const {
         filteredLevel,
         filteredFaculty,
@@ -113,12 +120,12 @@ export default {
         filteredExams
       } = filterDetails;
 
-      console.log(
-        filteredLevel,
-        filteredFaculty,
-        filteredNumOfMCs,
-        filteredExams
-      );
+      this.filtered = {
+        level: filteredLevel,
+        faculty: filteredFaculty,
+        numOfMCs: filteredNumOfMCs,
+        exams: filteredExams
+      };
     }
   }
 };

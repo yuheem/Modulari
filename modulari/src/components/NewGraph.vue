@@ -41,13 +41,20 @@
 <script>
 import * as d3 from "d3";
 import ModuleInfo from "./ModuleInfo";
+import {
+  defaultSettings,
+  filterLevel,
+  filterFaculty,
+  filterNumOfMCs,
+  filterExam
+} from "../assets/js/filterHelperMethods";
 
 export default {
   name: "NewGraph",
   components: {
     ModuleInfo
   },
-  props: ["nodes", "links", "modulesShown"],
+  props: ["nodes", "links", "modulesShown", "filtered"],
   data() {
     return {
       width: null,
@@ -166,7 +173,9 @@ export default {
             .on("drag", this.nodeDrag)
             .on("end", this.nodeDragEnd)
         )
-        .on("click", this.showModuleInfo);
+        .on("click", this.showModuleInfo)
+        .on("mouseover", this.showRelatedModules)
+        .on("mouseout", this.showFilteredModules);
 
       this.graph.selectAll("text").remove();
       this.graph
@@ -244,6 +253,119 @@ export default {
     },
     hideModuleInfo(hideInfo) {
       this.viewModuleInfo = hideInfo;
+    },
+    getRelatedNodesAndLinks(module) {
+      const relatedNodes = [];
+      relatedNodes.push(module);
+
+      const allLinks = this.simulation.force("link").links();
+      allLinks.forEach(link => {
+        if (link.source === module || link.target === module) {
+          if (!relatedNodes.find(nodes => nodes === link.source)) {
+            relatedNodes.push(link.source);
+          }
+          if (!relatedNodes.find(nodes => nodes === link.target)) {
+            relatedNodes.push(link.target);
+          }
+        }
+      });
+
+      return relatedNodes;
+    },
+    showRelatedModules(module) {
+      const nodes = this.getRelatedNodesAndLinks(module);
+
+      this.graph.selectAll("path").classed("faded", true);
+      this.graph
+        .selectAll("path")
+        .filter(link => link.source === module || link.target === module)
+        .classed("highlight", true);
+
+      this.graph.selectAll("circle").classed("faded", true);
+      this.graph
+        .selectAll("circle")
+        .filter(node => nodes.indexOf(node) > -1)
+        .classed("highlight", true);
+
+      this.graph.selectAll("text").classed("faded", true);
+      this.graph
+        .selectAll("text")
+        .filter(node => nodes.indexOf(node) > -1)
+        .classed("highlight", true);
+
+      this.simulation.alphaTarget(0).restart();
+    },
+    defaultGraph() {
+      this.graph
+        .selectAll("path")
+        .classed("faded", false)
+        .classed("highlight", false);
+      this.graph
+        .selectAll("circle")
+        .classed("faded", false)
+        .classed("highlight", false);
+      this.graph
+        .selectAll("text")
+        .classed("faded", false)
+        .classed("highlight", false);
+
+      this.simulation.restart();
+    },
+    showFilteredModules() {
+      // Reset classes of nodes
+      this.defaultGraph();
+
+      if (!defaultSettings(this.filtered)) {
+        const filteredNodes = [];
+
+        this.modulesShown.forEach(module => {
+          const fulfilFilterOptions =
+            filterLevel(module, this.filtered.level) &&
+            filterFaculty(module, this.filtered.faculty) &&
+            filterNumOfMCs(module, this.filtered.numOfMCs) &&
+            filterExam(module, this.filtered.exams);
+
+          if (fulfilFilterOptions) {
+            filteredNodes.push(module);
+          }
+        });
+
+        this.graph.selectAll("path").classed("faded", true);
+        this.graph
+          .selectAll("path")
+          .filter(link => {
+            const source = this.modulesShown[link.source.index];
+            const target = this.modulesShown[link.target.index];
+
+            return (
+              filteredNodes.indexOf(source) > -1 &&
+              filteredNodes.indexOf(target) > -1
+            );
+          })
+          .classed("highlight", true);
+
+        this.graph.selectAll("circle").classed("faded", true);
+        this.graph
+          .selectAll("circle")
+          .filter(node => {
+            const module = this.modulesShown[node.index];
+            return filteredNodes.indexOf(module) > -1;
+          })
+          .classed("highlight", true);
+
+        this.graph.selectAll("text").classed("faded", true);
+        this.graph
+          .selectAll("text")
+          .filter(node => {
+            const module = this.modulesShown[node.index];
+            return filteredNodes.indexOf(module) > -1;
+          })
+          .classed("highlight", true);
+
+        this.simulation.alphaTarget(0).restart();
+      } else {
+        this.defaultGraph();
+      }
     }
   },
   watch: {
@@ -259,7 +381,12 @@ export default {
     },
     forceProperties: {
       handler() {
-        this.setForceProperties;
+        this.setForceProperties();
+      }
+    },
+    filtered: {
+      handler() {
+        this.showFilteredModules();
       }
     }
   }
@@ -314,5 +441,13 @@ path {
   marker-end: url(#arrow);
   stroke: black;
   stroke-width: 1.5px;
+}
+
+.faded {
+  opacity: 0.2;
+}
+
+.highlight {
+  opacity: 1;
 }
 </style>
