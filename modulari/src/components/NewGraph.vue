@@ -257,6 +257,7 @@ export default {
       this.viewModuleInfo = hideInfo;
     },
     getRelatedNodesAndLinks(module) {
+      this.defaultGraph();
       const relatedNodes = [];
       relatedNodes.push(module);
 
