@@ -185,7 +185,9 @@ export default {
         .attr("x", "0")
         .attr("y", "0.31em")
         .attr("text-anchor", "middle")
-        .text(d => d.name);
+        .text(d => d.name)
+        .on("mouseover", this.showRelatedModules)
+        .on("mouseout", this.showFilteredModules);
 
       this.simulation.alpha(1).restart();
 
