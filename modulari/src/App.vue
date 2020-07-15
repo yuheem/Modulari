@@ -92,7 +92,8 @@ export default {
                 sourceId,
                 this.modulesShown,
                 updateNodes,
-                updateLinks
+                updateLinks,
+                undefined
               );
             }
           }

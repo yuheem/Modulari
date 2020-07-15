@@ -11,7 +11,7 @@
         <marker
           id="arrow"
           viewBox="0 -5 10 10"
-          refX="65"
+          refX="54"
           refY="0"
           markerWidth="6"
           markerHeight="6"
@@ -156,7 +156,9 @@ export default {
       this.graph
         .selectAll("path")
         .data(this.simulation.force("link").links())
-        .join("path");
+        .join("path")
+        .classed("andor", d => (d.type === "andor" ? true : false))
+        .classed("and", d => (d.type === "and" ? true : false));
 
       this.graph.selectAll("circle").remove();
       this.graph
@@ -443,7 +445,16 @@ circle {
 path {
   marker-end: url(#arrow);
   stroke: black;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
+}
+
+.andor {
+  stroke-dasharray: 10;
+  stroke: #fe6b64;
+}
+
+.and {
+  stroke-dasharray: 10;
 }
 
 .faded {
