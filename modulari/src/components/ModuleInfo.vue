@@ -40,15 +40,17 @@ export default {
       return "attributes" in this.moduleInfo;
     },
     getExamInfo(moduleInfo) {
-      if (moduleInfo.semesterData.length !== 0) {
-        const examinable = "examDate" in moduleInfo.semesterData[0];
+      if (moduleInfo.semesterData.length === 0) {
+        return "Exam information not available for the current semester";
+      }
 
-        // If module is examinable, retrieve the date of the exam and convert it from ISO to long date format
-        if (examinable) {
-          const examDate = moduleInfo.semesterData[0].examDate;
-          const longExamDate = format(new Date(examDate), "d MMMM yyyy");
-          return longExamDate;
-        }
+      const examinable = "examDate" in moduleInfo.semesterData[0];
+
+      // If module is examinable, retrieve the date of the exam and convert it from ISO to long date format
+      if (examinable) {
+        const examDate = moduleInfo.semesterData[0].examDate;
+        const longExamDate = format(new Date(examDate), "d MMMM yyyy");
+        return longExamDate;
       }
 
       // If module is non-examinable
@@ -65,7 +67,7 @@ export default {
   top: 16px;
   left: 16px;
   width: 250px;
-  height: 300px;
+  height: 320px;
   background: #ccccccac;
   outline-color: black;
   margin: 10px;
@@ -81,21 +83,6 @@ button {
 
 p {
   line-height: 1.5em;
-}
-
-.info {
-  width: 200px;
-  height: 300px;
-  fill: #ccccccac;
-  stroke: black;
-  margin: 10px;
-}
-
-.texts {
-  /* display: block; */
-  font-size: small;
-  /* width: 200px; */
-  max-inline-size: 200px;
 }
 
 a {
