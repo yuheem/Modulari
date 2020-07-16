@@ -17,7 +17,7 @@
       Has no SU option
     </p>
     <p>
-      <a href="https:nusmods.com">Click me</a>
+      <a @click="getModuleLink" style="text-decoration: underline">Click me</a>
       to find out more about the module
     </p>
   </div>
@@ -55,6 +55,12 @@ export default {
 
       // If module is non-examinable
       return "No exam";
+    },
+    getModuleLink() {
+      const moduleTitle = this.moduleInfo.title.toLowerCase();
+      const moduleTitleWithDashes = moduleTitle.replace(/\s/g, "-");
+
+      window.location.href = `https:nusmods.com/modules/${this.moduleInfo.moduleCode}/${moduleTitleWithDashes}`;
     }
   }
 };
@@ -87,5 +93,7 @@ p {
 
 a {
   font-family: sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>
