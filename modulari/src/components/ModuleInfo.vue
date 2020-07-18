@@ -16,6 +16,10 @@
       <i class="far fa-times-circle" style="color: #FE6B64"></i>
       Has no SU option
     </p>
+
+    <p v-if="this.moduleInfo.prerequisite">{{`Prerequisites: ${this.moduleInfo.prerequisite}`}}</p>
+    <p v-else>{{`Prerequisites: No prerequisites`}}</p>
+
     <p>
       <a @click="getModuleLink" style="text-decoration: underline">Click me</a>
       to find out more about the module
@@ -68,7 +72,6 @@ export default {
 
 <style scoped>
 #overlay {
-  /* display: none; */
   position: absolute;
   top: 16px;
   left: 16px;
@@ -89,6 +92,7 @@ button {
 
 p {
   line-height: 1.5em;
+  margin: 7px 0px;
 }
 
 a {

@@ -35,6 +35,12 @@
       <rect width="100%" height="100vh" fill="url(#grid)" />
       <g />
     </svg>
+
+    <div id="legend">
+      <svg>
+        <rect rx="10" ry="10" />
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -157,8 +163,21 @@ export default {
         .selectAll("path")
         .data(this.simulation.force("link").links())
         .join("path")
-        .classed("andor", d => (d.type === "andor" ? true : false))
-        .classed("and", d => (d.type === "and" ? true : false));
+        .classed("and", d =>
+          d.type === "and" || d.type === "andor" ? true : false
+        )
+        .classed("andor0", d =>
+          d.type === "andor" && d.num === 0 ? true : false
+        )
+        .classed("andor1", d =>
+          d.type === "andor" && d.num === 1 ? true : false
+        )
+        .classed("andor2", d =>
+          d.type === "andor" && d.num === 2 ? true : false
+        )
+        .classed("andor3", d =>
+          d.type === "andor" && d.num === 3 ? true : false
+        );
 
       this.graph.selectAll("circle").remove();
       this.graph
@@ -404,6 +423,20 @@ export default {
   height: 100vh;
 }
 
+#legend {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 200px;
+  height: 100px;
+  background: #ccccccac;
+  outline-color: black;
+  margin: 10px;
+  border: rgba(0, 0, 0, 0.658) 3px solid;
+  padding: 10px;
+  border-radius: 20px;
+}
+
 text {
   font: 20px san-serif;
   color: black;
@@ -448,9 +481,20 @@ path {
   stroke-width: 2px;
 }
 
-.andor {
-  stroke-dasharray: 10;
+.andor0 {
   stroke: #fe6b64;
+}
+
+.andor1 {
+  stroke: #02a566;
+}
+
+.andor2 {
+  stroke: #6b34ec;
+}
+
+.andor3 {
+  stroke: #a03567;
 }
 
 .and {

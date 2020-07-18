@@ -17,20 +17,38 @@ export function handlePrereqTree(
   modulesShown,
   nodes,
   links,
-  type
+  type,
+  index
 ) {
   if (tree.and) {
-    tree.and.forEach((n) =>
-      handlePrereqTree(n, sourceId, modulesShown, nodes, links, "and")
-    );
+    tree.and.forEach((n) => {
+      console.log(tree.and.indexOf(n));
+      return handlePrereqTree(
+        n,
+        sourceId,
+        modulesShown,
+        nodes,
+        links,
+        "and",
+        tree.and.indexOf(n)
+      );
+    });
   } else if (tree.or) {
     if (type === "and" || type === "andor") {
       tree.or.forEach((n) =>
-        handlePrereqTree(n, sourceId, modulesShown, nodes, links, "andor")
+        handlePrereqTree(
+          n,
+          sourceId,
+          modulesShown,
+          nodes,
+          links,
+          "andor",
+          index
+        )
       );
     } else {
       tree.or.forEach((n) =>
-        handlePrereqTree(n, sourceId, modulesShown, nodes, links, "or")
+        handlePrereqTree(n, sourceId, modulesShown, nodes, links, "or", index)
       );
     }
   } else {
@@ -56,19 +74,25 @@ export function handlePrereqTree(
 
         // Check if link is already present
         if (!linkExists) {
-          links.push({ source: sourceId, target: targetId, type: type });
+          links.push({
+            source: sourceId,
+            target: targetId,
+            type: type,
+            num: index,
+          });
         }
 
         const newSourceId = nodes.findIndex((node) => node.name === moduleCode);
         const newTree = moduleInfo.prereqTree;
-        if (tree) {
+        if (newTree) {
           handlePrereqTree(
             newTree,
             newSourceId,
             modulesShown,
             nodes,
             links,
-            undefined
+            undefined,
+            index
           );
         }
       })

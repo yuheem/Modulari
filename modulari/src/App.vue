@@ -93,7 +93,8 @@ export default {
                 this.modulesShown,
                 updateNodes,
                 updateLinks,
-                undefined
+                undefined,
+                0
               );
             }
           }
