@@ -187,6 +187,13 @@ export default {
         .attr("id", d => d.name)
         .attr("r", "50")
         .attr("class", d => "level" + d.level)
+        .classed("added", d => {
+          if (d.added) {
+            return true;
+          }
+
+          return false;
+        })
         .call(
           d3
             .drag()
@@ -507,5 +514,10 @@ path {
 
 .highlight {
   opacity: 1;
+}
+
+.added {
+  stroke: rgb(231, 97, 19);
+  stroke-width: 5px;
 }
 </style>

@@ -78,7 +78,11 @@ export default {
             this.modulesShown.push(moduleInfo);
 
             const moduleLevel = getLevelOfModule(moduleToBeAdded);
-            updateNodes.push({ name: moduleToBeAdded, level: moduleLevel });
+            updateNodes.push({
+              name: moduleToBeAdded,
+              level: moduleLevel,
+              added: true
+            });
             const sourceId = updateNodes.findIndex(
               node => node.name === moduleToBeAdded
             );
