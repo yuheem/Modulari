@@ -68,7 +68,7 @@
           <!-- Illustrate and-or modules, represented as coloured dashed arrows -->
           <path class="andor3 and" d="M 70 450 L 245 300" />
           <path class="andor3 and" d="M 170 450 L 245 300" />
-          <path class="and" d="M 245 450 L 245 300" />
+          <path d="M 245 450 L 245 300" />
           <path class="andor1 and" d="M 320 450 L 245 300" />
           <path class="andor1 and" d="M 420 450 L 245 300" />
           <circle class="level4" r="25" cx="70" cy="450" />
@@ -85,7 +85,11 @@
           <text x="413" y="455">F</text>
           <text class="legendText" x="145" y="510">Coloured "And" arrows</text>
           <text class="legendText" x="35" y="540">only one module in each coloured set is required</text>
-          <text class="legendText" x="50" y="570">(A requires either B or C, either E or F, and D)</text>
+          <text
+            class="legendText"
+            x="20"
+            y="570"
+          >(A requires just D or, either B or C and either E or F)</text>
         </svg>
       </div>
     </div>
