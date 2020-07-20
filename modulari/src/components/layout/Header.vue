@@ -15,8 +15,9 @@ h1 {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: black;
-  padding: 10px;
+  padding: 5px;
   background: rgb(109, 170, 150);
   margin: 0px;
+  height: 35px;
 }
 </style>
