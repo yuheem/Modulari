@@ -1,6 +1,8 @@
 <template>
   <div id="sidebar">
-    <button id="closeSidebar" @click="closeSidebar()">x</button>
+    <button id="closeSidebar" @click="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
     <h4>Filter by:</h4>
     <FilterOptions v-on:filter-modules="filterOptions" />
   </div>
@@ -37,5 +39,8 @@ export default {
 button {
   cursor: pointer;
   float: right;
+  border: 0;
+  background: none;
+  color: bisque;
 }
 </style>
