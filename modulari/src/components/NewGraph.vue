@@ -36,11 +36,9 @@
       <g />
     </svg>
 
-    <div id="legend">
-      <svg>
-        <rect rx="10" ry="10" />
-      </svg>
-    </div>
+    <button class="legend-button" @click="openLegend()">
+      <i class="far fa-question-circle"></i>
+    </button>
   </div>
 </template>
 
@@ -397,6 +395,9 @@ export default {
       } else {
         this.defaultGraph();
       }
+    },
+    openLegend() {
+      document.getElementById("legend").style.display = "block";
     }
   },
   watch: {
@@ -428,20 +429,6 @@ export default {
 #test-graph {
   width: 100%;
   height: 100vh;
-}
-
-#legend {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  width: 200px;
-  height: 100px;
-  background: #ccccccac;
-  outline-color: black;
-  margin: 10px;
-  border: rgba(0, 0, 0, 0.658) 3px solid;
-  padding: 10px;
-  border-radius: 20px;
 }
 
 text {
@@ -519,5 +506,14 @@ path {
 .added {
   stroke: rgb(231, 97, 19);
   stroke-width: 5px;
+}
+
+.legend-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 0;
+  background: none;
+  cursor: pointer;
 }
 </style>

@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
 
-    <div id="app-features">
+    <div id="app-features" style="position: relative">
       <Sidebar v-on:filter-modules="filterGraph" />
 
       <div id="main">
@@ -17,6 +17,8 @@
 
         <NewGraph :nodes="nodes" :links="links" :modulesShown="modulesShown" :filtered="filtered" />
       </div>
+
+      <Legend />
     </div>
   </div>
 </template>
@@ -26,6 +28,7 @@ import AddModules from "./components/AddModules";
 import Sidebar from "./components/Sidebar";
 import NewGraph from "./components/NewGraph";
 import Header from "./components/layout/Header";
+import Legend from "./components/Legend";
 import {
   getModuleInfo,
   handlePrereqTree,
@@ -38,7 +41,8 @@ export default {
     AddModules,
     Sidebar,
     Header,
-    NewGraph
+    NewGraph,
+    Legend
   },
   data() {
     return {
