@@ -47,7 +47,7 @@
         </svg>
       </div>
       <div class="box">
-        <svg width="100vh" height="100%">
+        <svg width="100%" height="100%">
           <!-- Illustrate either or modules, represented as solid arrows -->
           <path d="M 170 150 L 120 50" />
           <path d="M 70 150 L 120 50" />
