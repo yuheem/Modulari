@@ -8,35 +8,42 @@
       <div class="box">
         <svg width="100%" height="100%">
           <circle class="level1" r="25" cx="50" cy="50" />
-          <text class="legendText" x="89" y="55">Level 1 modules</text>
+          <text class="legendText" x="89" y="55">Level 1000 modules</text>
 
           <circle class="level2" r="25" cx="300" cy="50" />
-          <text class="legendText" x="339" y="55">Level 2 modules</text>
+          <text class="legendText" x="339" y="55">Level 2000 modules</text>
 
           <circle class="level3" r="25" cx="50" cy="150" />
-          <text class="legendText" x="89" y="155">Level 3 modules</text>
+          <text class="legendText" x="89" y="155">Level 3000 modules</text>
 
           <circle class="level4" r="25" cx="300" cy="150" />
-          <text class="legendText" x="339" y="155">Level 4 modules</text>
+          <text class="legendText" x="339" y="155">Level 4000 modules</text>
 
           <circle class="level5" r="25" cx="50" cy="250" />
-          <text class="legendText" x="89" y="255">Level 5 modules</text>
+          <text class="legendText" x="89" y="255">Level 5000 modules</text>
 
           <circle class="level6" r="25" cx="300" cy="250" />
-          <text class="legendText" x="339" y="255">Level 6 modules</text>
+          <text class="legendText" x="339" y="255">Level 6000 modules</text>
 
           <circle class="level8" r="25" cx="50" cy="350" />
-          <text class="legendText" x="89" y="355">Level 8 modules</text>
+          <text class="legendText" x="89" y="355">Level 8000 modules</text>
 
-          <circle class="added" r="25" cx="50" cy="450" />
-          <text class="legendText" x="89" y="455">Nodes highlighted red indicate modules added</text>
+          <circle class="added" r="25" cx="300" cy="350" />
+          <text class="legendText" x="339" y="355">Modules added</text>
+
+          <rect class="info" width="100" height="150" rx="10" ry="10" x="25" y="400" />
+          <text style="font: 15px san-serif" x="35" y="440">Module code</text>
+          <text style="font: 15px san-serif" x="60" y="460">Title</text>
+          <text style="font: 15px san-serif" x="45" y="480">Exam info</text>
+          <text style="font: 15px san-serif" x="50" y="500">SU info</text>
+          <text style="font: 15px san-serif" x="35" y="520">Prerequisites</text>
 
           <text
             class="legendText"
-            style="font-size: 25px"
-            x="10"
-            y="550"
-          >Click on nodes to view module information:)</text>
+            style="font-size: 18px"
+            x="140"
+            y="475"
+          >Click on circles to view module information</text>
         </svg>
       </div>
       <div class="box">
@@ -50,8 +57,8 @@
           <text x="113" y="55">A</text>
           <text x="63" y="155">B</text>
           <text x="163" y="155">C</text>
-          <text class="legendText" x="53" y="210">Either or arrows</text>
-          <text class="legendText" x="13" y="240">(A requires either B or C)</text>
+          <text class="legendText" x="60" y="210">Either or arrows</text>
+          <text class="legendText" x="25" y="240">(A requires either B or C)</text>
 
           <!-- Illustrate and modules, represented as dashed arrows -->
           <path class="and" d="M 420 150 L 370 50" />
@@ -62,8 +69,8 @@
           <text x="363" y="55">A</text>
           <text x="313" y="155">B</text>
           <text x="413" y="155">C</text>
-          <text class="legendText" x="318" y="210">And arrows</text>
-          <text class="legendText" x="263" y="240">(A requires both B and C)</text>
+          <text class="legendText" x="325" y="210">And arrows</text>
+          <text class="legendText" x="273" y="240">(A requires both B and C)</text>
 
           <!-- Illustrate and-or modules, represented as coloured dashed arrows -->
           <path class="andor3 and" d="M 70 450 L 245 300" />
@@ -83,11 +90,11 @@
           <text x="238" y="455">D</text>
           <text x="313" y="455">E</text>
           <text x="413" y="455">F</text>
-          <text class="legendText" x="145" y="510">Coloured "And" arrows</text>
-          <text class="legendText" x="35" y="540">only one module in each coloured set is required</text>
+          <text class="legendText" x="160" y="510">Coloured "And" arrows</text>
+          <text class="legendText" x="65" y="540">only one module in each coloured set is required</text>
           <text
             class="legendText"
-            x="20"
+            x="55"
             y="570"
           >(A requires just D or, either B or C and either E or F)</text>
         </svg>
@@ -144,7 +151,13 @@ button {
 
 .legendText {
   fill: bisque;
-  font-size: 20px;
+  font-size: 17px;
   font-family: sans-serif;
+}
+
+.info {
+  fill: #ccccccac;
+  stroke: black;
+  stroke-width: 3px;
 }
 </style>>
