@@ -3,7 +3,7 @@
     <button id="closeSidebar" @click="closeSidebar()">
       <i class="fas fa-times"></i>
     </button>
-    <h4>Filter by:</h4>
+    <h4 style="margin: 10px 0px">Filter by:</h4>
     <FilterOptions v-on:filter-modules="filterOptions" />
   </div>
 </template>
@@ -14,7 +14,7 @@ import FilterOptions from "./FilterOptions";
 export default {
   name: "Sidebar",
   components: {
-    FilterOptions
+    FilterOptions,
   },
   methods: {
     closeSidebar() {
@@ -23,8 +23,8 @@ export default {
     },
     filterOptions(filterDetails) {
       this.$emit("filter-modules", filterDetails);
-    }
-  }
+    },
+  },
 };
 </script>
 

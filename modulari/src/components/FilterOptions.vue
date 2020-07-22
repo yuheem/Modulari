@@ -1,13 +1,15 @@
 <template>
   <div id="filter-options">
-    <form @submit="filterModules">
+    <form>
       <ul>
         <!-- Filter modules by level -->
         <li>
           <label for="level">Level:</label>
           <select v-model="level" name="level">
-            <option selected>{{NO_FILTER}}</option>
-            <option v-for="lvl in levelOptions" v-bind:key="lvl.id">{{lvl.level}}</option>
+            <option selected>{{ NO_FILTER }}</option>
+            <option v-for="lvl in levelOptions" v-bind:key="lvl.id">{{
+              lvl.level
+            }}</option>
           </select>
         </li>
 
@@ -15,8 +17,10 @@
         <li>
           <label for="faculty">Faculty:</label>
           <select v-model="faculty" name="faculty">
-            <option selected>{{NO_FILTER}}</option>
-            <option v-for="fac in facultyOptions" :key="fac.id">{{fac.faculty}}</option>
+            <option selected>{{ NO_FILTER }}</option>
+            <option v-for="fac in facultyOptions" :key="fac.id">{{
+              fac.faculty
+            }}</option>
           </select>
         </li>
 
@@ -24,8 +28,10 @@
         <li>
           <label for="numOfMCs">Number of MCs:</label>
           <select v-model="numOfMCs" name="numOfMCs">
-            <option selected>{{NO_FILTER}}</option>
-            <option v-for="mc in numOfMCsOptions" v-bind:key="mc.id">{{mc.MCs}}</option>
+            <option selected>{{ NO_FILTER }}</option>
+            <option v-for="mc in numOfMCsOptions" v-bind:key="mc.id">{{
+              mc.MCs
+            }}</option>
           </select>
         </li>
 
@@ -33,13 +39,20 @@
         <li>
           <label for="exams">Exams:</label>
           <select v-model="exams" name="exams">
-            <option selected>{{NO_FILTER}}</option>
+            <option selected>{{ NO_FILTER }}</option>
             <option>No Exams</option>
           </select>
         </li>
       </ul>
 
-      <input type="submit" value="Filter" />
+      <v-btn
+        small
+        outlined
+        color="#FFFFFF"
+        style="margin: 5px 0px"
+        @click="filterModules"
+        >Filter</v-btn
+      >
     </form>
   </div>
 </template>
@@ -62,7 +75,7 @@ export default {
         { id: 5, level: "5000" },
         { id: 6, level: "6000" },
         { id: 7, level: "7000" },
-        { id: 8, level: "8000" }
+        { id: 8, level: "8000" },
       ],
       facultyOptions: [
         { id: 1, faculty: "Arts and Social Science" },
@@ -87,14 +100,14 @@ export default {
         { id: 20, faculty: "University Scholars Programme" },
         { id: 21, faculty: "Yale-NUS College" },
         { id: 22, faculty: "Yong Loo Lin Sch of Medicine" },
-        { id: 23, faculty: "YST Conservatory of Music" }
+        { id: 23, faculty: "YST Conservatory of Music" },
       ],
       numOfMCsOptions: [
         { id: 1, MCs: "0-3 MCs" },
         { id: 2, MCs: "4 MCs" },
         { id: 3, MCs: "5-8 MCs" },
-        { id: 4, MCs: "More than 8 MCs" }
-      ]
+        { id: 4, MCs: "More than 8 MCs" },
+      ],
     };
   },
   methods: {
@@ -104,19 +117,19 @@ export default {
         filteredLevel: this.level,
         filteredFaculty: this.faculty,
         filteredNumOfMCs: this.numOfMCs,
-        filteredExams: this.exams
+        filteredExams: this.exams,
       };
 
       // Send filter details up to parent
       this.$emit("filter-modules", filterDetails);
-    }
+    },
   },
   created() {
     this.level = this.NO_FILTER;
     this.faculty = this.NO_FILTER;
     this.numOfMCs = this.NO_FILTER;
     this.exams = this.NO_FILTER;
-  }
+  },
 };
 </script>
 
@@ -140,5 +153,5 @@ select {
   border-radius: 4px;
   box-sizing: border-box;
   background: rgb(241, 239, 216);
-}
-</style>>
+}</style
+>>
