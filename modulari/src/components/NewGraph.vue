@@ -39,24 +39,28 @@
     <button class="legend-button" @click="openLegend()">
       <i class="far fa-question-circle"></i>
     </button>
+
+    <Table />
   </div>
 </template>
 
 <script>
 import * as d3 from "d3";
 import ModuleInfo from "./ModuleInfo";
+import Table from "./Table";
 import {
   defaultSettings,
   filterLevel,
   filterFaculty,
   filterNumOfMCs,
-  filterExam
+  filterExam,
 } from "../assets/js/filterHelperMethods";
 
 export default {
   name: "NewGraph",
   components: {
-    ModuleInfo
+    ModuleInfo,
+    Table,
   },
   props: ["nodes", "links", "modulesShown", "filtered"],
   data() {
@@ -69,29 +73,29 @@ export default {
         charge: {
           strength: -2000,
           distanceMin: 1,
-          distanceMax: 2000
+          distanceMax: 2000,
         },
         collide: {
           strength: 0.7,
           iterations: 1,
-          radius: 200
+          radius: 200,
         },
         forceX: {
           strength: 0.1,
-          x: 0.5
+          x: 0.5,
         },
         forceY: {
           strength: 0.2,
-          y: 0.5
+          y: 0.5,
         },
         link: {
           enabled: true,
           distance: 100,
-          iterations: 1
-        }
+          iterations: 1,
+        },
       },
       viewModuleInfo: false,
-      clickedModuleInfo: null
+      clickedModuleInfo: null,
     };
   },
   created() {
@@ -130,10 +134,10 @@ export default {
   methods: {
     tick() {
       console.log("tick");
-      const nodeCoord = node => {
+      const nodeCoord = (node) => {
         return "translate(" + node.x + "," + node.y + ")";
       };
-      const linkCoord = link => {
+      const linkCoord = (link) => {
         return (
           "M " +
           link.target.x +
@@ -161,19 +165,19 @@ export default {
         .selectAll("path")
         .data(this.simulation.force("link").links())
         .join("path")
-        .classed("and", d =>
+        .classed("and", (d) =>
           d.type === "and" || d.type === "andor" ? true : false
         )
-        .classed("andor0", d =>
+        .classed("andor0", (d) =>
           d.type === "andor" && d.num === 0 ? true : false
         )
-        .classed("andor1", d =>
+        .classed("andor1", (d) =>
           d.type === "andor" && d.num === 1 ? true : false
         )
-        .classed("andor2", d =>
+        .classed("andor2", (d) =>
           d.type === "andor" && d.num === 2 ? true : false
         )
-        .classed("andor3", d =>
+        .classed("andor3", (d) =>
           d.type === "andor" && d.num === 3 ? true : false
         );
 
@@ -182,10 +186,10 @@ export default {
         .selectAll("circle")
         .data(this.simulation.nodes())
         .join("circle")
-        .attr("id", d => d.name)
+        .attr("id", (d) => d.name)
         .attr("r", "50")
-        .attr("class", d => "level" + d.level)
-        .classed("added", d => {
+        .attr("class", (d) => "level" + d.level)
+        .classed("added", (d) => {
           if (d.added) {
             return true;
           }
@@ -211,7 +215,7 @@ export default {
         .attr("x", "0")
         .attr("y", "0.31em")
         .attr("text-anchor", "middle")
-        .text(d => d.name)
+        .text((d) => d.name)
         .on("mouseover", this.showRelatedModules)
         .on("mouseout", this.showFilteredModules);
 
@@ -288,12 +292,12 @@ export default {
       relatedNodes.push(module);
 
       const allLinks = this.simulation.force("link").links();
-      allLinks.forEach(link => {
+      allLinks.forEach((link) => {
         if (link.source === module || link.target === module) {
-          if (!relatedNodes.find(nodes => nodes === link.source)) {
+          if (!relatedNodes.find((nodes) => nodes === link.source)) {
             relatedNodes.push(link.source);
           }
-          if (!relatedNodes.find(nodes => nodes === link.target)) {
+          if (!relatedNodes.find((nodes) => nodes === link.target)) {
             relatedNodes.push(link.target);
           }
         }
@@ -307,19 +311,19 @@ export default {
       this.graph.selectAll("path").classed("faded", true);
       this.graph
         .selectAll("path")
-        .filter(link => link.source === module || link.target === module)
+        .filter((link) => link.source === module || link.target === module)
         .classed("highlight", true);
 
       this.graph.selectAll("circle").classed("faded", true);
       this.graph
         .selectAll("circle")
-        .filter(node => nodes.indexOf(node) > -1)
+        .filter((node) => nodes.indexOf(node) > -1)
         .classed("highlight", true);
 
       this.graph.selectAll("text").classed("faded", true);
       this.graph
         .selectAll("text")
-        .filter(node => nodes.indexOf(node) > -1)
+        .filter((node) => nodes.indexOf(node) > -1)
         .classed("highlight", true);
 
       this.simulation.alphaTarget(0).restart();
@@ -347,7 +351,7 @@ export default {
       if (!defaultSettings(this.filtered)) {
         const filteredNodes = [];
 
-        this.modulesShown.forEach(module => {
+        this.modulesShown.forEach((module) => {
           const fulfilFilterOptions =
             filterLevel(module, this.filtered.level) &&
             filterFaculty(module, this.filtered.faculty) &&
@@ -362,7 +366,7 @@ export default {
         this.graph.selectAll("path").classed("faded", true);
         this.graph
           .selectAll("path")
-          .filter(link => {
+          .filter((link) => {
             const source = this.modulesShown[link.source.index];
             const target = this.modulesShown[link.target.index];
 
@@ -376,7 +380,7 @@ export default {
         this.graph.selectAll("circle").classed("faded", true);
         this.graph
           .selectAll("circle")
-          .filter(node => {
+          .filter((node) => {
             const module = this.modulesShown[node.index];
             return filteredNodes.indexOf(module) > -1;
           })
@@ -385,7 +389,7 @@ export default {
         this.graph.selectAll("text").classed("faded", true);
         this.graph
           .selectAll("text")
-          .filter(node => {
+          .filter((node) => {
             const module = this.modulesShown[node.index];
             return filteredNodes.indexOf(module) > -1;
           })
@@ -398,30 +402,30 @@ export default {
     },
     openLegend() {
       document.getElementById("legend").style.display = "block";
-    }
+    },
   },
   watch: {
     links: {
       handler() {
         this.updateSimulation();
-      }
+      },
     },
     nodes: {
       handler() {
         this.updateSimulation();
-      }
+      },
     },
     forceProperties: {
       handler() {
         this.setForceProperties();
-      }
+      },
     },
     filtered: {
       handler() {
         this.showFilteredModules();
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 
