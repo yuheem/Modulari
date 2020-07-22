@@ -6,7 +6,11 @@
       <Sidebar v-on:filter-modules="filterGraph" />
 
       <div id="main">
-        <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
+        <button
+          id="openSidebar"
+          @click="openSidebar()"
+          class="fas fa-angle-right"
+        ></button>
         <span>
           <p style="margin-bottom: 0px">
             <b v-if="invalidModuleCode">Invalid module code.</b>
@@ -15,7 +19,12 @@
           <AddModules v-on:add-module="addModules" />
         </span>
 
-        <NewGraph :nodes="nodes" :links="links" :modulesShown="modulesShown" :filtered="filtered" />
+        <NewGraph
+          :nodes="nodes"
+          :links="links"
+          :modulesShown="modulesShown"
+          :filtered="filtered"
+        />
       </div>
 
       <Legend />
@@ -32,9 +41,8 @@ import Legend from "./components/Legend";
 import {
   getModuleInfo,
   handlePrereqTree,
-  getLevelOfModule
+  getLevelOfModule,
 } from "./assets/js/helper.js";
-
 export default {
   name: "App",
   components: {
@@ -42,7 +50,7 @@ export default {
     Sidebar,
     Header,
     NewGraph,
-    Legend
+    Legend,
   },
   data() {
     return {
@@ -55,8 +63,8 @@ export default {
         level: "No filter",
         faculty: "No filter",
         numOfMCs: "No filter",
-        exams: "No filter"
-      }
+        exams: "No filter",
+      },
     };
   },
   methods: {
@@ -64,34 +72,29 @@ export default {
       const moduleToBeAdded = moduleCode.toUpperCase();
       const updateNodes = this.nodes;
       const updateLinks = this.links;
-
       // helper function that retrieves module information via a http request from nusmods
       getModuleInfo(moduleToBeAdded)
-        .then(moduleInfo => {
+        .then((moduleInfo) => {
           this.invalidModuleCode = false;
-
           const moduleCode = moduleInfo.moduleCode;
           const exists = this.modulesShown.find(
-            module => module.moduleCode === moduleCode
+            (module) => module.moduleCode === moduleCode
           );
-
           if (exists) {
             this.modulePresent = true;
           } else {
             this.modulePresent = false;
             this.modulesShown.push(moduleInfo);
-
             const moduleLevel = getLevelOfModule(moduleToBeAdded);
             updateNodes.push({
               name: moduleToBeAdded,
               level: moduleLevel,
-              added: true
+              added: true,
             });
             const sourceId = updateNodes.findIndex(
-              node => node.name === moduleToBeAdded
+              (node) => node.name === moduleToBeAdded
             );
             const tree = moduleInfo.prereqTree;
-
             // If module added has prerequisites
             if (tree) {
               // helper function that builds the prerequisite tree to be displayed
@@ -108,7 +111,7 @@ export default {
           }
         })
         // Checks for http request error in the event of invalid module code added
-        .catch(e => {
+        .catch((e) => {
           if (e.request) {
             this.invalidModuleCode = true;
             this.modulePresent = false;
@@ -127,17 +130,16 @@ export default {
         filteredLevel,
         filteredFaculty,
         filteredNumOfMCs,
-        filteredExams
+        filteredExams,
       } = filterDetails;
-
       this.filtered = {
         level: filteredLevel,
         faculty: filteredFaculty,
         numOfMCs: filteredNumOfMCs,
-        exams: filteredExams
+        exams: filteredExams,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -147,11 +149,9 @@ export default {
   min-height: 100vh;
   font-family: sans-serif;
 }
-
 #main {
   padding: 10px;
 }
-
 b {
   margin: 0px;
   color: red;
