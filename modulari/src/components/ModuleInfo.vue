@@ -65,8 +65,8 @@ export default {
       const moduleTitleWithDashes = moduleTitle.replace(/\s/g, "-");
 
       window.location.href = `https:nusmods.com/modules/${this.moduleInfo.moduleCode}/${moduleTitleWithDashes}`;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -76,7 +76,6 @@ export default {
   top: 16px;
   left: 16px;
   width: 250px;
-  height: 320px;
   background: #ccccccac;
   outline-color: black;
   margin: 10px;
