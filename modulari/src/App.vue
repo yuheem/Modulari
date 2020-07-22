@@ -156,4 +156,8 @@ b {
   margin: 0px;
   color: red;
 }
+
+button {
+  outline: none;
+}
 </style>
