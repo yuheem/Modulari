@@ -19,26 +19,10 @@
         >
           <path d="M0,-5 L10,0 L0,5" />
         </marker>
-        <pattern
-          id="innerGrid"
-          :width="10"
-          :height="10"
-          patternUnits="userSpaceOnUse"
-        >
-          <rect
-            width="100%"
-            height="100%"
-            fill="none"
-            stroke="#CCCCCC7A"
-            stroke-width="0.5"
-          />
+        <pattern id="innerGrid" :width="10" :height="10" patternUnits="userSpaceOnUse">
+          <rect width="100%" height="100%" fill="none" stroke="#CCCCCC7A" stroke-width="0.5" />
         </pattern>
-        <pattern
-          id="grid"
-          :width="100"
-          :height="100"
-          patternUnits="userSpaceOnUse"
-        >
+        <pattern id="grid" :width="100" :height="100" patternUnits="userSpaceOnUse">
           <rect
             width="100%"
             height="100%"
@@ -56,15 +40,9 @@
       <i class="far fa-question-circle"></i>
     </button>
 
-    <button class="table-button" @click="openTable()">
-      <i class="fas fa-table"></i>
-    </button>
-
-    <button class="delete-button">
-      <i class="far fa-trash-alt"></i>
-    </button>
-
     <Table />
+
+    <DeleteModule :moduleToDelete="clickedModuleInfo" v-on:delete-module="deleteModule()" />
   </div>
 </template>
 
@@ -72,6 +50,7 @@
 import * as d3 from "d3";
 import ModuleInfo from "./ModuleInfo";
 import Table from "./Table";
+import DeleteModule from "./DeleteModule";
 import {
   defaultSettings,
   filterLevel,
@@ -85,6 +64,7 @@ export default {
   components: {
     ModuleInfo,
     Table,
+    DeleteModule,
   },
   props: ["nodes", "links", "modulesShown", "filtered"],
   data() {
@@ -309,6 +289,7 @@ export default {
     },
     hideModuleInfo(hideInfo) {
       this.viewModuleInfo = hideInfo;
+      this.clickedModuleInfo = null;
     },
     getRelatedNodesAndLinks(module) {
       this.defaultGraph();
@@ -427,8 +408,12 @@ export default {
     openLegend() {
       document.getElementById("legend").style.display = "block";
     },
-    openTable() {
-      document.getElementById("table").style.display = "block";
+    deleteModule() {
+      const moduleToDelete = this.clickedModuleInfo.moduleCode;
+
+      this.$emit("delete-module", moduleToDelete);
+
+      this.hideModuleInfo();
     },
   },
   watch: {
@@ -545,26 +530,6 @@ path {
   right: 10px;
   border: 0;
   background: none;
-  cursor: pointer;
-}
-
-.table-button {
-  position: absolute;
-  top: 10px;
-  right: 35px;
-  border: 0;
-  background: none;
-  color: #3f7e69;
-  cursor: pointer;
-}
-
-.delete-button {
-  position: absolute;
-  top: 10px;
-  right: 60px;
-  border: 0;
-  background: none;
-  color: #f33737;
   cursor: pointer;
 }
 </style>

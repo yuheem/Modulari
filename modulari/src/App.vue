@@ -6,11 +6,7 @@
       <Sidebar v-on:filter-modules="filterGraph" />
 
       <div id="main">
-        <button
-          id="openSidebar"
-          @click="openSidebar()"
-          class="fas fa-angle-right"
-        ></button>
+        <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
         <span>
           <p style="margin-bottom: 0px">
             <b v-if="invalidModuleCode">Invalid module code.</b>
@@ -24,6 +20,7 @@
           :links="links"
           :modulesShown="modulesShown"
           :filtered="filtered"
+          v-on:delete-module="deleteModule"
         />
       </div>
 
@@ -138,6 +135,19 @@ export default {
         numOfMCs: filteredNumOfMCs,
         exams: filteredExams,
       };
+    },
+    deleteModule(moduleToDelete) {
+      this.nodes = this.nodes.filter(
+        (module) => module.name !== moduleToDelete
+      );
+      this.links = this.links.filter(
+        (link) =>
+          link.source.name !== moduleToDelete &&
+          link.target.name !== moduleToDelete
+      );
+      this.modulesShown = this.modulesShown.filter(
+        (module) => module.moduleCode !== moduleToDelete
+      );
     },
   },
 };
