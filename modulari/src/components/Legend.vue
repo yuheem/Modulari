@@ -31,24 +31,19 @@
           <circle class="added" r="25" cx="300" cy="350" />
           <text class="legendText" x="339" y="355">Modules added</text>
 
-          <rect
-            class="info"
-            width="100"
-            height="150"
-            rx="10"
-            ry="10"
-            x="25"
-            y="400"
-          />
+          <rect class="info" width="100" height="150" rx="10" ry="10" x="25" y="400" />
           <text style="font: 15px san-serif" x="35" y="440">Module code</text>
           <text style="font: 15px san-serif" x="60" y="460">Title</text>
           <text style="font: 15px san-serif" x="45" y="480">Exam info</text>
           <text style="font: 15px san-serif" x="50" y="500">SU info</text>
           <text style="font: 15px san-serif" x="35" y="520">Prerequisites</text>
 
-          <text class="legendText" style="font-size: 18px" x="140" y="475">
-            Click on circles to view module information
-          </text>
+          <text
+            class="legendText"
+            style="font-size: 18px"
+            x="140"
+            y="475"
+          >Click on circles to view module information</text>
         </svg>
       </div>
       <div class="box">
@@ -63,9 +58,7 @@
           <text x="63" y="155">B</text>
           <text x="163" y="155">C</text>
           <text class="legendText" x="60" y="210">Either or arrows</text>
-          <text class="legendText" x="25" y="240">
-            (A requires either B or C)
-          </text>
+          <text class="legendText" x="25" y="240">(A requires either B or C)</text>
 
           <!-- Illustrate and modules, represented as dashed arrows -->
           <path class="and" d="M 420 150 L 370 50" />
@@ -77,9 +70,7 @@
           <text x="313" y="155">B</text>
           <text x="413" y="155">C</text>
           <text class="legendText" x="325" y="210">And arrows</text>
-          <text class="legendText" x="273" y="240">
-            (A requires both B and C)
-          </text>
+          <text class="legendText" x="273" y="240">(A requires both B and C)</text>
 
           <!-- Illustrate and-or modules, represented as coloured dashed arrows -->
           <path class="andor3 and" d="M 70 450 L 245 300" />
@@ -100,12 +91,12 @@
           <text x="313" y="455">E</text>
           <text x="413" y="455">F</text>
           <text class="legendText" x="160" y="510">Coloured "And" arrows</text>
-          <text class="legendText" x="65" y="540">
-            only one module in each coloured set is required
-          </text>
-          <text class="legendText" x="55" y="570">
-            (A requires just D or, either B or C and either E or F)
-          </text>
+          <text class="legendText" x="65" y="540">only one module in each coloured set is required</text>
+          <text
+            class="legendText"
+            x="55"
+            y="570"
+          >(A requires just D or, either B or C and either E or F)</text>
         </svg>
       </div>
     </div>
@@ -150,6 +141,7 @@ button {
   /* position: absolute; */
   width: 550px;
   height: 100vh;
+  min-height: 620px;
   /* background: #1b1b1bac; */
   outline-color: blanchedalmond;
   margin: 30px;
@@ -168,5 +160,6 @@ button {
   fill: #ccccccac;
   stroke: black;
   stroke-width: 3px;
-}</style
+}
+</style
 >>
