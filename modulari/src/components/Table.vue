@@ -1,44 +1,41 @@
 <template>
-  <div id="table">
-    <button @click="closeTable()" style="float: right">
-      <i class="fas fa-times"></i>
+  <div>
+    <button class="table-button" @click="openTable()">
+      <i class="fas fa-table"></i>
     </button>
 
-    <h3>Module planner</h3>
+    <div id="table">
+      <button @click="closeTable()" style="float: right">
+        <i class="fas fa-times"></i>
+      </button>
 
-    <v-tabs
-      height="30px"
-      background-color="rgba(0, 0, 0, 0)"
-      color="#FFFFFF"
-      dark
-    >
-      <v-tab v-for="n in 3" :key="n">{{ n }}</v-tab>
-    </v-tabs>
+      <h3>Module planner</h3>
 
-    <p v-if="this.modulesToTake.length === 0">
-      -Press the plus button below to add modules-
-    </p>
+      <v-tabs height="30px" background-color="rgba(0, 0, 0, 0)" color="#FFFFFF" dark>
+        <v-tab v-for="n in 3" :key="n">{{ n }}</v-tab>
+      </v-tabs>
 
-    <v-container style="margin: 10px 0px">
-      <v-row dense>
-        <v-col v-for="input in modulesToTake" :key="input.id" cols="6">
-          <v-text-field
-            v-model="input.module"
-            color="#FFFFFF"
-            dense
-            placeholder="Module code"
-            outlined
-            dark
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
+      <p v-if="this.modulesToTake.length === 0">-Press the plus button below to add modules-</p>
 
-    <v-btn @click="addTextBox()" outlined dark rounded class="v-btn">+</v-btn>
+      <v-container style="margin: 10px 0px">
+        <v-row dense>
+          <v-col v-for="input in modulesToTake" :key="input.id" cols="6">
+            <v-text-field
+              v-model="input.module"
+              color="#FFFFFF"
+              dense
+              placeholder="Module code"
+              outlined
+              dark
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>
 
-    <v-btn @click="removeTextBox()" outlined dark rounded class="v-btn"
-      >-</v-btn
-    >
+      <v-btn @click="addTextBox()" outlined dark rounded class="v-btn">+</v-btn>
+
+      <v-btn @click="removeTextBox()" outlined dark rounded class="v-btn">-</v-btn>
+    </div>
   </div>
 </template>
 
@@ -67,6 +64,9 @@ export default {
     },
     removeTextBox() {
       this.modulesToTake.pop();
+    },
+    openTable() {
+      document.getElementById("table").style.display = "block";
     },
   },
 };
@@ -107,5 +107,15 @@ p {
   color: rgba(255, 255, 255, 0.815);
   text-align: center;
   margin-top: 50px;
+}
+
+.table-button {
+  position: absolute;
+  top: 10px;
+  right: 35px;
+  border: 0;
+  background: none;
+  color: #3f7e69;
+  cursor: pointer;
 }
 </style>
