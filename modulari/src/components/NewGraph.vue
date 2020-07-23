@@ -40,7 +40,7 @@
       <i class="far fa-question-circle"></i>
     </button>
 
-    <Table />
+    <Planner />
 
     <DeleteModule :moduleToDelete="clickedModuleInfo" v-on:delete-module="deleteModule()" />
   </div>
@@ -49,7 +49,7 @@
 <script>
 import * as d3 from "d3";
 import ModuleInfo from "./ModuleInfo";
-import Table from "./Table";
+import Planner from "./Planner";
 import DeleteModule from "./DeleteModule";
 import {
   defaultSettings,
@@ -63,7 +63,7 @@ export default {
   name: "NewGraph",
   components: {
     ModuleInfo,
-    Table,
+    Planner,
     DeleteModule,
   },
   props: ["nodes", "links", "modulesShown", "filtered"],

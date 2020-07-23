@@ -1,41 +1,25 @@
 <template>
-  <div>
-    <button class="table-button" @click="openTable()">
-      <i class="fas fa-table"></i>
-    </button>
+  <div id="tab-content">
+    <p v-if="this.modulesToTake.length === 0">-Press the plus button below to add modules-</p>
 
-    <div id="table">
-      <button @click="closeTable()" style="float: right">
-        <i class="fas fa-times"></i>
-      </button>
+    <v-container style="margin: 10px 0px">
+      <v-row dense>
+        <v-col v-for="input in modulesToTake" :key="input.id" cols="6">
+          <v-text-field
+            v-model="input.module"
+            color="#FFFFFF"
+            dense
+            placeholder="Module code"
+            outlined
+            dark
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-container>
 
-      <h3>Module planner</h3>
+    <v-btn @click="addTextBox()" outlined dark rounded class="v-btn">+</v-btn>
 
-      <v-tabs height="30px" background-color="rgba(0, 0, 0, 0)" color="#FFFFFF" dark>
-        <v-tab v-for="n in 3" :key="n">{{ n }}</v-tab>
-      </v-tabs>
-
-      <p v-if="this.modulesToTake.length === 0">-Press the plus button below to add modules-</p>
-
-      <v-container style="margin: 10px 0px">
-        <v-row dense>
-          <v-col v-for="input in modulesToTake" :key="input.id" cols="6">
-            <v-text-field
-              v-model="input.module"
-              color="#FFFFFF"
-              dense
-              placeholder="Module code"
-              outlined
-              dark
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <v-btn @click="addTextBox()" outlined dark rounded class="v-btn">+</v-btn>
-
-      <v-btn @click="removeTextBox()" outlined dark rounded class="v-btn">-</v-btn>
-    </div>
+    <v-btn @click="removeTextBox()" outlined dark rounded class="v-btn">-</v-btn>
   </div>
 </template>
 
@@ -54,9 +38,6 @@ export default {
     };
   },
   methods: {
-    closeTable() {
-      document.getElementById("table").style.display = "none";
-    },
     addTextBox() {
       const id = this.modulesToTake.length;
       const newTextBox = { id: id, module: "" };
@@ -65,37 +46,14 @@ export default {
     removeTextBox() {
       this.modulesToTake.pop();
     },
-    openTable() {
-      document.getElementById("table").style.display = "block";
-    },
   },
 };
 </script>
 
 <style scoped>
-#table {
-  display: none;
-  position: absolute;
-  top: 20px;
-  right: 16px;
-  width: 350px;
+#tab-content {
   background: rgba(2, 21, 126, 0.842);
-  outline-color: black;
-  margin: 20px;
-  /* border: grey 3px solid; */
-  padding: 10px;
-  border-radius: 5px;
-}
-
-button {
-  color: white;
-}
-
-h3 {
-  color: white;
-  font-size: 20px;
-  margin: 0px 0px 10px 0px;
-  text-align: center;
+  padding: 5px;
 }
 
 .v-btn {
@@ -107,15 +65,5 @@ p {
   color: rgba(255, 255, 255, 0.815);
   text-align: center;
   margin-top: 50px;
-}
-
-.table-button {
-  position: absolute;
-  top: 10px;
-  right: 35px;
-  border: 0;
-  background: none;
-  color: #3f7e69;
-  cursor: pointer;
 }
 </style>
