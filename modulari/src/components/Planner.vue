@@ -26,6 +26,10 @@
         <button @click="addTab()" style="float: right">+</button>
       </v-tabs>
 
+      <p v-if="this.tables.length === 0">
+        -Press the plus button to create a new planner-
+      </p>
+
       <v-tabs-items v-model="tab">
         <v-tab-item
           v-for="table in tables"
@@ -110,5 +114,12 @@ h3 {
   background: none;
   color: #3f7e69;
   cursor: pointer;
+}
+
+p {
+  color: rgba(255, 255, 255, 0.815);
+  text-align: center;
+  font-size: 15px;
+  margin-top: 10px;
 }
 </style>

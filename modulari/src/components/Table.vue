@@ -16,9 +16,13 @@
       :disabled="edit"
     ></v-text-field>
 
-    <v-alert v-if="alert" type="warning" dense color="#ff0026" outlined>This title already exists.</v-alert>
+    <v-alert v-if="alert" type="warning" dense color="#ff0026" outlined
+      >This title already exists.</v-alert
+    >
 
-    <p v-if="this.modulesToTake.length === 0">-Press the plus button below to add modules-</p>
+    <p v-if="this.modulesToTake.length === 0">
+      -Press the plus button below to add modules-
+    </p>
 
     <v-container style="margin: 10px 0px">
       <v-row dense>
@@ -37,7 +41,9 @@
 
     <v-btn @click="addTextBox()" outlined dark rounded class="v-btn">+</v-btn>
 
-    <v-btn @click="removeTextBox()" outlined dark rounded class="v-btn">-</v-btn>
+    <v-btn @click="removeTextBox()" outlined dark rounded class="v-btn"
+      >-</v-btn
+    >
   </div>
 </template>
 
