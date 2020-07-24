@@ -4,7 +4,10 @@
       <i class="fas fa-times"></i>
     </button>
     <h4 style="margin: 10px 0px">Filter by:</h4>
-    <FilterOptions v-on:filter-modules="filterOptions" />
+    <FilterOptions
+      v-on:filter-modules="filterOptions"
+      v-on:reset-filter-options="$emit('reset-filter-options')"
+    />
   </div>
 </template>
 

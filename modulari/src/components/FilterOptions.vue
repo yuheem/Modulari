@@ -53,6 +53,15 @@
         @click="filterModules"
         >Filter</v-btn
       >
+
+      <v-btn
+        small
+        outlined
+        color="#FFFFFF"
+        style="margin: 5px 10px"
+        @click="$emit('reset-filter-options')"
+        >Reset</v-btn
+      >
     </form>
   </div>
 </template>

@@ -3,7 +3,10 @@
     <Header />
 
     <div id="app-features" style="position: relative">
-      <Sidebar v-on:filter-modules="filterGraph" />
+      <Sidebar
+        v-on:filter-modules="filterGraph"
+        v-on:reset-filter-options="filtered = defaultFilterSettings"
+      />
 
       <div id="main">
         <button
