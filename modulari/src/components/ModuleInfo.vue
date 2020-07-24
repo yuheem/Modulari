@@ -3,10 +3,10 @@
     <button @click="closeModuleInfo()" style="float: right">
       <i class="fas fa-times"></i>
     </button>
-    <p>{{this.moduleInfo.moduleCode}}</p>
-    <p>{{this.moduleInfo.title}}</p>
-    <p>{{`Number of MCs: ${this.moduleInfo.moduleCredit}`}}</p>
-    <p>{{`Exam: ${this.getExamInfo(this.moduleInfo)}`}}</p>
+    <p>{{ this.moduleInfo.moduleCode }}</p>
+    <p>{{ this.moduleInfo.title }}</p>
+    <p>{{ `Number of MCs: ${this.moduleInfo.moduleCredit}` }}</p>
+    <p>{{ `Exam: ${this.getExamInfo(this.moduleInfo)}` }}</p>
 
     <p v-if="checkSU()">
       <i class="far fa-check-circle" style="color: #77DD77"></i>
@@ -17,8 +17,10 @@
       Has no SU option
     </p>
 
-    <p v-if="this.moduleInfo.prerequisite">{{`Prerequisites: ${this.moduleInfo.prerequisite}`}}</p>
-    <p v-else>{{`Prerequisites: No prerequisites`}}</p>
+    <p v-if="this.moduleInfo.prerequisite">
+      {{ `Prerequisites: ${this.moduleInfo.prerequisite}` }}
+    </p>
+    <p v-else>{{ `Prerequisites: No prerequisites` }}</p>
 
     <p>
       <a @click="getModuleLink" style="text-decoration: underline">Click me</a>
@@ -64,7 +66,8 @@ export default {
       const moduleTitle = this.moduleInfo.title.toLowerCase();
       const moduleTitleWithDashes = moduleTitle.replace(/\s/g, "-");
 
-      window.location.href = `https:nusmods.com/modules/${this.moduleInfo.moduleCode}/${moduleTitleWithDashes}`;
+      const href = `https:nusmods.com/modules/${this.moduleInfo.moduleCode}/${moduleTitleWithDashes}`;
+      window.open(href, "_blank");
     },
   },
 };
