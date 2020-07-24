@@ -6,7 +6,11 @@
       <Sidebar v-on:filter-modules="filterGraph" />
 
       <div id="main">
-        <button id="openSidebar" @click="openSidebar()" class="fas fa-angle-right"></button>
+        <button
+          id="openSidebar"
+          @click="openSidebar()"
+          class="fas fa-angle-right"
+        ></button>
         <span>
           <p style="margin-bottom: 0px">
             <b v-if="invalidModuleCode">Invalid module code.</b>
@@ -21,6 +25,7 @@
           :modulesShown="modulesShown"
           :filtered="filtered"
           v-on:delete-module="deleteModule"
+          v-on:clear-modules="clearModules"
         />
       </div>
 
@@ -40,6 +45,7 @@ import {
   handlePrereqTree,
   getLevelOfModule,
 } from "./assets/js/helper.js";
+
 export default {
   name: "App",
   components: {
@@ -56,13 +62,18 @@ export default {
       modulesShown: [],
       nodes: [],
       links: [],
-      filtered: {
-        level: "No filter",
-        faculty: "No filter",
-        numOfMCs: "No filter",
-        exams: "No filter",
-      },
+      defaultFilterSettings: null,
+      filtered: null,
     };
+  },
+  created() {
+    this.defaultFilterSettings = {
+      level: "No filter",
+      faculty: "No filter",
+      numOfMCs: "No filter",
+      exams: "No filter",
+    };
+    this.filtered = this.defaultFilterSettings;
   },
   methods: {
     addModules(moduleCode) {
@@ -148,6 +159,12 @@ export default {
       this.modulesShown = this.modulesShown.filter(
         (module) => module.moduleCode !== moduleToDelete
       );
+    },
+    clearModules() {
+      this.nodes = [];
+      this.links = [];
+      this.modulesShown = [];
+      this.filtered = this.defaultFilterSettings;
     },
   },
 };
