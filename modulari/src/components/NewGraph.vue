@@ -56,7 +56,7 @@
       <i class="far fa-question-circle"></i>
     </button>
 
-    <Planner />
+    <Planner v-on:apply="applyToGraph" />
 
     <DeleteModule
       :moduleToDelete="clickedModuleInfo"
@@ -434,6 +434,43 @@ export default {
       this.$emit("delete-module", moduleToDelete);
 
       this.hideModuleInfo();
+    },
+    applyToGraph(modules) {
+      this.defaultGraph();
+
+      this.graph.selectAll("path").classed("faded", true);
+      this.graph
+        .selectAll("path")
+        .filter((link) => {
+          const source = this.modulesShown[link.source.index];
+          const target = this.modulesShown[link.target.index];
+
+          return (
+            modules.indexOf(source.moduleCode) > -1 &&
+            modules.indexOf(target.moduleCode) > -1
+          );
+        })
+        .classed("highlight", true);
+
+      this.graph.selectAll("circle").classed("faded", true);
+      this.graph
+        .selectAll("circle")
+        .filter((node) => {
+          const module = this.modulesShown[node.index];
+          return modules.indexOf(module.moduleCode) > -1;
+        })
+        .classed("highlight", true);
+
+      this.graph.selectAll("text").classed("faded", true);
+      this.graph
+        .selectAll("text")
+        .filter((node) => {
+          const module = this.modulesShown[node.index];
+          return modules.indexOf(module.moduleCode) > -1;
+        })
+        .classed("highlight", true);
+
+      this.simulation.alphaTarget(0).restart();
     },
   },
   watch: {

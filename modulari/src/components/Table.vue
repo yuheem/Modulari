@@ -20,6 +20,10 @@
       >This title already exists.</v-alert
     >
 
+    <v-alert v-if="applyAlert" type="warning" dense color="#ff0026" outlined
+      >No modules are added to apply.</v-alert
+    >
+
     <p v-if="this.modulesToTake.length === 0">
       -Press the plus button below to add modules-
     </p>
@@ -38,6 +42,10 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <v-btn @click="apply()" outlined dark rounded class="apply" dense
+      >Apply</v-btn
+    >
 
     <v-btn @click="addTextBox()" outlined dark rounded class="v-btn">+</v-btn>
 
@@ -62,6 +70,7 @@ export default {
       ],
       edit: true,
       alert: false,
+      applyAlert: false,
     };
   },
   methods: {
@@ -86,8 +95,23 @@ export default {
       const validate = this.tables.some(
         (tab) => tab.title === inputTitle && tab.id !== this.table.id
       );
-      console.log(validate);
+
       return validate;
+    },
+    apply() {
+      const modules = [];
+      this.modulesToTake.forEach((mod) => {
+        if (mod.module !== "") {
+          modules.push(mod.module.toUpperCase());
+        }
+      });
+
+      if (modules.length !== 0) {
+        this.applyAlert = false;
+        this.$emit("apply", modules);
+      } else {
+        this.applyAlert = true;
+      }
     },
   },
 };
@@ -114,5 +138,10 @@ button {
   float: right;
   color: white;
   margin: 20px 0px 0px 0px;
+}
+
+.apply {
+  color: white;
+  float: left;
 }
 </style>

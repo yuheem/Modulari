@@ -37,7 +37,7 @@
           transition="false"
           reverse-transition="false"
         >
-          <Table :table="table" :tables="tables" />
+          <Table :table="table" :tables="tables" v-on:apply="emitToGraph" />
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -76,6 +76,9 @@ export default {
     addTab() {
       const newTab = { id: Math.random(), title: "" };
       this.tables.push(newTab);
+    },
+    emitToGraph(modules) {
+      this.$emit("apply", modules);
     },
   },
 };
