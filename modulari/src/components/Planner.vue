@@ -19,7 +19,7 @@
         color="#FFFFFF"
         dark
       >
-        <v-tab v-for="table in tables" :key="table.title">
+        <v-tab v-for="table in tables" :key="table.id">
           <Tab :tab="table" v-on:delete-tab="closeTab" />
         </v-tab>
 
@@ -33,7 +33,7 @@
           transition="false"
           reverse-transition="false"
         >
-          <Table />
+          <Table :table="table" :tables="tables" />
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -70,8 +70,7 @@ export default {
       this.tables = this.tables.filter((table) => table.id !== tab);
     },
     addTab() {
-      const tabID = this.tables.length;
-      const newTab = { id: tabID, title: "" };
+      const newTab = { id: Math.random(), title: "" };
       this.tables.push(newTab);
     },
   },
@@ -88,7 +87,6 @@ export default {
   background: rgba(2, 21, 126, 0.842);
   outline-color: black;
   margin: 20px;
-  /* border: grey 3px solid; */
   padding: 10px;
   border-radius: 5px;
 }
