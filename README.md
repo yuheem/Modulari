@@ -294,8 +294,6 @@ Figure 39: Before modules in planner are applied to the graph
 
 ![README_images/README_planner_after_apply.png](README_images/README_planner_after_apply.png)
 
-Figure 40: After modules in planner are applied to the graph
-
 # How is Modulari different from NUSMods
 
 While NUSMods does provide a prerequisite tree for users to view how modules relate to one another, the prerequisite tree only displays the immediate prerequisites needed to take the module and does not show if the prerequisites needed to take the module has other prerequisites to be fulfilled. Modulari, however, plans to show all prerequisites, all the way to the level 1000 modules. This should allow for better planning as users will be able to easily see all the prerequisites that need to be fulfilled at a glance, which would be especially useful for higher-level modules.
