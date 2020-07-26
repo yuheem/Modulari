@@ -58,11 +58,11 @@ Any module information shown in Modulari is scraped from NUSMods. Therefore, Mod
 - When users first open Modulari, a legend of the graph will be shown to users (Figure 1)
 - After closing the legend, users will be able to view the legend again by clicking on the ? button at the top right corner (circled in red in Figure 2)
 
-![README images/README_legend.png](README images/README_legend.png)
+![README_legend.png](README images/README_legend.png)
 
 Figure 1: Starting page displaying legend
 
-![README images/README_legend_button_circled.png](README images/README_legend_button_circled.png)
+![README_legend_button_circled.png](README images/README_legend_button_circled.png)
 
 Figure 2: Question-mark button (circled in red) to open the legend for future reference
 
@@ -77,11 +77,11 @@ The graph shown in the Module Map Generator is implemented using D3 and is based
   1. If an invalid module code is detected, an alert will be shown to the users letting them know that the module code keyed in is invalid (Figure 3)
   2. If the module is already shown in the graph, a similar alert will be shown to users letting them know that the module is already shown in the graph (Figure 4)
 
-![README images/README_invalid_module_code.png](README images/README_invalid_module_code.png)
+![README_invalid_module_code.png](README images/README_invalid_module_code.png)
 
 Figure 3: Alert shown when invalid module code is added
 
-![README images/README_module_already_shown.png](README images/README_module_already_shown.png)
+![README_module_already_shown.png](README images/README_module_already_shown.png)
 
 Figure 4: Alert shown when module added is already shown in the graph
 
@@ -95,23 +95,23 @@ Figure 4: Alert shown when module added is already shown in the graph
   5. Nodes/circles are also able to be dragged around by clicking on the desired node/circle and dragging it to its desired position, any nodes/circles connected to it will move along with it as well
   6. By hovering over nodes/circles, the immediate prerequisites of the module, as well as the modules the hovered module is an immediate prerequisite of will be highlighted while any other modules in the graph will be faded. (Figure 8 & 9)
 
-     ![README images/README_es2660.png](README images/README_es2660.png)
+     ![README_es2660.png](README images/README_es2660.png)
 
      Figure 5: Normal view of graph
 
-     ![README images/README_zoomed_out.png](README images/README_zoomed_out.png)
+     ![README_zoomed_out.png](README images/README_zoomed_out.png)
 
      Figure 6: Zoomed out view of graph
 
-     ![README images/README_zoomed_in.png](README images/README_zoomed_in.png)
+     ![README_zoomed_in.png](README images/README_zoomed_in.png)
 
      Figure 7: Zoomed in view of graph
 
-     ![README images/README_CS2104_normal.png](README images/README_CS2104_normal.png)
+     ![README_CS2104_normal.png](README images/README_CS2104_normal.png)
 
      Figure 8: Prerequisite tree of CS2104
 
-     ![README images/README_CS2104_hover.png](README images/README_CS2104_hover.png)
+     ![README_CS2104_hover.png](README images/README_CS2104_hover.png)
 
      Figure 9: When mouse is hovered over CS2030 (CS1010 is an immediate prerequisite of CS2030 and CS2030 is an immediate prerequisite of CS2104, CS2113 and CS2113T), while other modules in the prerequisite tree of CS2104 is faded
 
@@ -120,15 +120,15 @@ Figure 4: Alert shown when module added is already shown in the graph
   2. If CS2030 is added next, since CS2030 and CS2040 share the same prerequisite of CS1010, the prerequisite tree of CS2040 and that of CS2030 will be merged to form the graph shown below. (Figure 11)
   3. If ES2660 is added next, as ES2660 and its prerequisites are unrelated to any of the modules currently displayed, prerequisite tree for ES2660 is separated from that of CS2040 and CS2030 (Figure 12)
 
-![README images/README_2040.png](README images/README_2040.png)
+![README_2040.png](README images/README_2040.png)
 
 Figure 10: Prerequisite tree generated when CS2040 (bolded with a red border) is added
 
-![README images/README_20402030.png](README images/README_20402030.png)
+![README_20402030.png](README images/README_20402030.png)
 
 Figure 11: Prerequisite tree generated when CS2030 (bolded with a red border) is added on top of CS2040
 
-![README images/README_es2660%201.png](README images/README_es2660%201.png)
+![README_es2660%201.png](README images/README_es2660%201.png)
 
 Firgure 12: Prerequisite tree generated when ES2660 (bolded in a red border) is added to the existing graph
 
@@ -138,11 +138,11 @@ Firgure 12: Prerequisite tree generated when ES2660 (bolded in a red border) is 
   2. For the module CS2113 (Figure 13), it requires either only CS2040C or both CS2030 and CS2040 in order to fulfill the requirements for CS2113
   3. For the module CS3235 (Figure 14), it requires 3 modules to fulfill its prerequisites (CS2107, **either** CS2106 **or** CG2271, **AND** **either** CS2105 **or** EE4204)
 
-     ![README images/README_and-or.png](README images/README_and-or.png)
+     ![README_and-or.png](README images/README_and-or.png)
 
      Figure 13: Prerequisites for CS2113
 
-  ![README images/README_and_arrows.png](README images/README_and_arrows.png)
+  ![README_and_arrows.png](README images/README_and_arrows.png)
 
   Figure 14: Prerequisites for CS3235
 
@@ -153,31 +153,31 @@ Firgure 12: Prerequisite tree generated when ES2660 (bolded in a red border) is 
   1. Users can open the sidebar using the button at the top left hand corner (circled in red in Figure 15)
   2. Users will be able to filter the tree by level of module, faculty, number of MCs and if the module is examinable or not (Figure 17 - 21)
 
-  ![README images/README_sidebar_circled.png](README images/README_sidebar_circled.png)
+  ![README_sidebar_circled.png](README images/README_sidebar_circled.png)
 
   Figure 15: Sidebar button circled in red
 
-  ![README images/README_sidebar.png](README images/README_sidebar.png)
+  ![README_sidebar.png](README images/README_sidebar.png)
 
   Figure 16: Filter sidebar
 
-  ![README images/README_filter-2000.png](README images/README_filter-2000.png)
+  ![README_filter-2000.png](README images/README_filter-2000.png)
 
   Figure 17: Filter graph by level
 
-  ![README images/README_filter-computing.png](README images/README_filter-computing.png)
+  ![README_filter-computing.png](README images/README_filter-computing.png)
 
   Figure 18: FIlter graph by faculty
 
-  ![README images/README_filter-mc.png](README images/README_filter-mc.png)
+  ![README_filter-mc.png](README images/README_filter-mc.png)
 
   Figure 19: Filter graph by number of MCs
 
-  ![README images/README_filter-exam.png](README images/README_filter-exam.png)
+  ![README_filter-exam.png](README images/README_filter-exam.png)
 
   Figure 20: Filter graph by exam information
 
-  ![README images/README_filter-multioptions.png](README images/README_filter-multioptions.png)
+  ![README_filter-multioptions.png](README images/README_filter-multioptions.png)
 
   Figure 21: Filter graph using all 4 options
 
@@ -191,13 +191,13 @@ Firgure 12: Prerequisite tree generated when ES2660 (bolded in a red border) is 
   5. Information about SU option
   6. Prerequisites of modules in words
 
-![README images/README_mod_info.png](README images/README_mod_info.png)
+![README_mod_info.png](README images/README_mod_info.png)
 
 Figure 22: Module information for CS2106
 
 - A link will be provided at the bottom of every module description and when clicked on, the NUSMods page on the module selected will open in a new tab or window. Users will then be able to access more information on the module from the timetable to reviews by other NUS students (Figure 23)
 
-![README images/README_mod_info_circled_link.png](README images/README_mod_info_circled_link.png)
+![README_mod_info_circled_link.png](README images/README_mod_info_circled_link.png)
 
 Figure 23: Link to NUSMods page for CS2106 circled in red
 
@@ -209,19 +209,19 @@ Figure 23: Link to NUSMods page for CS2106 circled in red
   3. Before a module is deleted, a prompt will appear asking the user to confirm if they want to delete the selected module from the tree. (Figure 26)
   4. Figure 27 shows the prerequisite tree displayed after deleting a module
 
-![README images/README_underlined_icons.png](README images/README_underlined_icons.png)
+![README_underlined_icons.png](README images/README_underlined_icons.png)
 
 Figure 24: Delete module (underlined red) and clear modules (underlined green) icons
 
-![README images/README_del_error.png](README images/README_del_error.png)
+![README_del_error.png](README images/README_del_error.png)
 
 Figure 25: Alert shown when no module is selected to be deleted
 
-![README images/README_del_confirm.png](README images/README_del_confirm.png)
+![README_del_confirm.png](README images/README_del_confirm.png)
 
 Figure 26: Confirmation prompt to delete module CS2106
 
-![README images/README_del_circled.png](README images/README_del_circled.png)
+![README_del_circled.png](README images/README_del_circled.png)
 
 Figure 27: Prerequisite tree displayed after deleting CS2106. Prerequisites of CS2106 circled in red.
 
@@ -229,11 +229,11 @@ Figure 27: Prerequisite tree displayed after deleting CS2106. Prerequisites of C
   1. Before clearing all the modules, a prompt will appear asking the user to confirm if they want to clear everything from the tree. (Figure 28)
   2. If confirmed, all modules will be cleared from the grid (Figure 29)
 
-![README images/README_clear_confirm.png](README images/README_clear_confirm.png)
+![README_clear_confirm.png](README images/README_clear_confirm.png)
 
 Figure 28: Confirmation prompt to clear all modules
 
-![README images/README_clear.png](README images/README_clear.png)
+![README_clear.png](README images/README_clear.png)
 
 Figure 29: All modules cleared
 
@@ -242,11 +242,11 @@ Figure 29: All modules cleared
 - Modulari provides a template for users to plan modules with. Users are able to access this planner by clicking on the calendar icon (circled red in Figure 30) to open up the module planner (Figure 31)
 - The default module planner includes 2 tabs (with 5 module slots each) titled Sem 1 and Sem 2 respectively for users to plan for both semesters in the current academic year if desired so (Figure 32).
 
-![README images/README_planner_icon.png](README images/README_planner_icon.png)
+![README_planner_icon.png](README images/README_planner_icon.png)
 
 Figure 31: Module planner icon circled in red
 
-![README images/README_default_planner.png](README images/README_default_planner.png)
+![README_default_planner.png](README images/README_default_planner.png)
 
 Figure 32: Default planner template
 
@@ -254,11 +254,11 @@ Figure 32: Default planner template
   1. To confirm the change in title of the current tab, users are required to click on the tick to confirm the change in title
   2. In the event that another tab has the same title as an already existing tab, a warning will appear to alert the users and prompt them to change the title of the planner (Figure 34)
 
-![README images/README_planner_rename_title.png](README images/README_planner_rename_title.png)
+![README_planner_rename_title.png](README images/README_planner_rename_title.png)
 
 Figure 33: Rename Sem 1 title to HelloWorld
 
-![README images/README_planner_rename_alert.png](README images/README_planner_rename_alert.png)
+![README_planner_rename_alert.png](README images/README_planner_rename_alert.png)
 
 Figure 34: Warning that appears when user tries to rename a tab with a title that already exists
 
@@ -266,47 +266,47 @@ Figure 34: Warning that appears when user tries to rename a tab with a title tha
 - Likewise, should users want to delete tabs, they can click on the cross icon next to the title in each tab to delete the tab
   1. If users delete all the tabs in the planner, a message will appear to add tabs using the plus button (Figure 36)
 
-![README images/README_planner_untitled_tab.png](README images/README_planner_untitled_tab.png)
+![README_planner_untitled_tab.png](README images/README_planner_untitled_tab.png)
 
 Figure 35: New tab created with no title
 
-![README images/README_planner_no_tab.png](README images/README_planner_no_tab.png)
+![README_planner_no_tab.png](README images/README_planner_no_tab.png)
 
 Figure 36: No tabs message
 
 - Users can add or delete module slots in each planner by clicking on the plus and minus buttons found at the bottom right of the planner (Figure 37 & 38)
   1. If users delete all the module slots in the planner, a message will appear to prompt the user to add module slots using the plus button below
 
-![README images/README_planner_add_modules.png](README images/README_planner_add_modules.png)
+![README_planner_add_modules.png](README images/README_planner_add_modules.png)
 
 Figure 37: Added 2 new module slots to the default template of 5 module slots
 
-![README images/README_planner_no_modules.png](README images/README_planner_no_modules.png)
+![README_planner_no_modules.png](README images/README_planner_no_modules.png)
 
 Figure 38: No module slots message
 
 - An apply button can be found at the bottom left corner of the planner should users want to see how the modules they plan to take compare to the prerequisite tree they have generated (Figure 39 & 40)
   1. Modules keyed in to the planner will be highlighted if present in the tree while any other modules not found in the planner will be faded
 
-![README images/README_planner_before_apply.png](README images/README_planner_before_apply.png)
+![README_planner_before_apply.png](README images/README_planner_before_apply.png)
 
 Figure 39: Before modules in planner are applied to the graph
 
-![README images/README_planner_after_apply.png](README images/README_planner_after_apply.png)
+![README_planner_after_apply.png](README images/README_planner_after_apply.png)
 
 # How is Modulari different from NUSMods
 
 While NUSMods does provide a prerequisite tree for users to view how modules relate to one another, the prerequisite tree only displays the immediate prerequisites needed to take the module and does not show if the prerequisites needed to take the module has other prerequisites to be fulfilled. Modulari, however, plans to show all prerequisites, all the way to the level 1000 modules. This should allow for better planning as users will be able to easily see all the prerequisites that need to be fulfilled at a glance, which would be especially useful for higher-level modules.
 
-![README images/Untitled.png](README images/Untitled.png)
+![Untitled.png](README images/Untitled.png)
 
 Prerequisite tree shown on NUSMods for module CS4238 - only shows CS3235 as prerequisite but does not show the prerequisites to take CS3235 (shown below)
 
-![README images/Untitled%201.png](README images/Untitled%201.png)
+![Untitled%201.png](README images/Untitled%201.png)
 
 Prerequisite tree shown on NUSMods for module CS3235
 
-![README images/README_CS4238.png](README images/README_CS4238.png)
+![README_CS4238.png](README images/README_CS4238.png)
 
 Prerequisite tree shown on Modulari for CS4238
 
