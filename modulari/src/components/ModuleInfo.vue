@@ -17,9 +17,7 @@
       Has no SU option
     </p>
 
-    <p v-if="this.moduleInfo.prerequisite">
-      {{ `Prerequisites: ${this.moduleInfo.prerequisite}` }}
-    </p>
+    <p v-if="this.moduleInfo.prerequisite">{{ `Prerequisites: ${this.moduleInfo.prerequisite}` }}</p>
     <p v-else>{{ `Prerequisites: No prerequisites` }}</p>
 
     <p>
@@ -66,7 +64,7 @@ export default {
       const moduleTitle = this.moduleInfo.title.toLowerCase();
       const moduleTitleWithDashes = moduleTitle.replace(/\s/g, "-");
 
-      const href = `https:nusmods.com/modules/${this.moduleInfo.moduleCode}/${moduleTitleWithDashes}`;
+      const href = `https://nusmods.com/modules/${this.moduleInfo.moduleCode}/${moduleTitleWithDashes}`;
       window.open(href, "_blank");
     },
   },
